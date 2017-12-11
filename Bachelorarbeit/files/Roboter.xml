@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <roboter>
-    <company>Makeblock</company>
+    <abstandssensor>false</abstandssensor>
+    <fahrbar>true</fahrbar>
     <id>1</id>
-    <moveable>true</moveable>
-    <name>Rover</name>
+    <linefollower>false</linefollower>
+    <name>myRanger</name>
+    <firma>Makeblock</firma>
 </roboter>

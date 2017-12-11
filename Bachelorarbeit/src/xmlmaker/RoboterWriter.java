@@ -48,7 +48,7 @@ public class RoboterWriter {
 		try {
 			RoboterWriter writer = new RoboterWriter();
 			
-			Roboter toFile = new Roboter(1,"Rover","Makeblock",true);
+			Roboter toFile = new Roboter();
 			writer.serialize(toFile);
 			
 			Roboter fromFile = writer.deserialize();

@@ -6,8 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Roboter {
 	private int id;
 	private String name;
-	private String company;
-	private boolean moveable;
+	private String firma;
+	private boolean fahrbar;
+	private boolean abstandssensor;
+	private boolean linefollower;
 
 	public int getId() {
 		return id;
@@ -25,28 +27,47 @@ public class Roboter {
 		this.name = name;
 	}
 
-	public String getCompany() {
-		return company;
+	public String getfirma() {
+		return firma;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+	public void setfirma(String firma) {
+		this.firma = firma;
 	}
 
-	public boolean isMoveable() {
-		return moveable;
+	public boolean getFahrbar() {
+		return fahrbar;
 	}
 
-	public void setMoveable(boolean moveable) {
-		this.moveable = moveable;
+	public void setFahrbar(boolean fahrbar) {
+		this.fahrbar = fahrbar;
 	}
 
-	public Roboter(int id, String name, String company, boolean moveable) {
+	public boolean getAbstandssensor() {
+		return abstandssensor;
+	}
+
+	public void setAbstandssensor(boolean abstandssensor) {
+		this.abstandssensor = abstandssensor;
+	}
+
+	public boolean getLinefollower() {
+		return linefollower;
+	}
+
+	public void setLinefollower(boolean linefollower) {
+		this.linefollower = linefollower;
+	}
+
+
+	public Roboter(int id, String name, String firma, boolean fahrbar, boolean abstandssensor, boolean linefollower) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.company = company;
-		this.moveable = moveable;
+		this.firma = firma;
+		this.fahrbar = fahrbar;
+		this.abstandssensor = abstandssensor;
+		this.linefollower = linefollower;
 	}
 
 	public Roboter() {
@@ -55,7 +76,10 @@ public class Roboter {
 
 	@Override
 	public String toString() {
-		return "Roboter [id=" + id + ", name=" + name + ", company=" + company + ", moveable=" + moveable + "]";
+		return "Roboter [id=" + id + ", name=" + name + ", firma=" + firma + ", fahrbar=" + fahrbar
+				+ ", abstandssensor=" + abstandssensor + ", linefollower=" + linefollower + "]";
 	}
+
+
 
 }
