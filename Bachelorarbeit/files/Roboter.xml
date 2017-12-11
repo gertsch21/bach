@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<roboter>
+    <company>Makeblock</company>
+    <id>1</id>
+    <moveable>true</moveable>
+    <name>Rover</name>
+</roboter>
