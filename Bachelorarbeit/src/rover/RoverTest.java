@@ -1,12 +1,13 @@
-package org.omilab.omirob.rover;
+package rover;
 
-import org.omilab.omirob.mbot.client.MbotClient;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 
 import java.io.IOException;
+
+import mbot.client.MbotClient;
 
 /**
  * Created by Christian Muck

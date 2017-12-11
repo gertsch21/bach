@@ -1,4 +1,4 @@
-package org.omilab.omirob.mbot.client;
+package mbot.client;
 
 /**
  * Port and Slot IDs as defined in MePort.h

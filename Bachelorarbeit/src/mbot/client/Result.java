@@ -1,4 +1,4 @@
-package org.omilab.omirob.mbot.client;
+package mbot.client;
 
 /**
  * @author    Martin Kunz <martin.michael.kunz@gmail.com>

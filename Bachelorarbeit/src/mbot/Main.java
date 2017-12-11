@@ -1,8 +1,5 @@
-package org.omilab.omirob.mbot;
+package mbot;
 
-import org.omilab.omirob.mbot.client.IMbotEvent;
-import org.omilab.omirob.mbot.client.MbotClient;
-import org.omilab.omirob.mbot.client.Port;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
@@ -10,6 +7,10 @@ import purejavacomm.UnsupportedCommOperationException;
 
 import java.io.IOException;
 import java.util.Enumeration;
+
+import mbot.client.IMbotEvent;
+import mbot.client.MbotClient;
+import mbot.client.Port;
 
 /**
  * Simple test program fir mBot client library;

@@ -1,4 +1,4 @@
-package org.omilab.omirob.mbot.client;
+package mbot.client;
 
 /**
  * Event Interface for mBot onboard button

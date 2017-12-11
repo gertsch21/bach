@@ -1,4 +1,4 @@
-package org.omilab.omirob.mbot.client;
+package mbot.client;
 
 /**
  * Device IDs from mBot firmware files(mbot_firmware.ino, orion_firmware.ino)

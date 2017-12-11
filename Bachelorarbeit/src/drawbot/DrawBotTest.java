@@ -1,12 +1,13 @@
-package org.omilab.omirob.drawbot;
+package drawbot;
 
-import org.omilab.omirob.mbot.client.MDrawBotClient;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 
 import java.io.IOException;
+
+import mbot.client.MDrawBotClient;
 
 /**
  * This class was created to test the function of the MDrawBotClient and to show how the functions can be called.
