@@ -70,7 +70,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-	<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.0.0</version>
@@ -80,7 +80,7 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						
+
 					</execution>
 				</executions>
 			</plugin>
