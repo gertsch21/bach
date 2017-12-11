@@ -43,13 +43,6 @@
 			<artifactId>slf4j-jdk14</artifactId>
 			<version>1.7.21</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>2.26</version>
-		</dependency>
-
 
 	</dependencies>
 
@@ -64,7 +57,20 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>springboot.controller.MyRestController</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+	<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.0.0</version>
@@ -74,28 +80,9 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>springboot.controller.MyRestController</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
+						
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>main.HelloWorld</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
