@@ -1,6 +1,7 @@
 package xmlmaker;
 
 import java.io.File;
+import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -30,6 +31,14 @@ public class RoboterWriter {
 		
 		this.filename = filename;
 	}
+	
+
+	public String objectToXMLString(Roboter x) throws Exception{
+		StringWriter sw = new StringWriter();
+		marshaller.marshal(x, sw);
+		return sw.toString();
+	}
+	
 	
 	public void serialize(Roboter x) throws JAXBException{
 		marshaller.marshal(x, new File("files\\"+this.filename));
