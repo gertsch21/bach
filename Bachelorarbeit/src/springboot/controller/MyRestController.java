@@ -18,8 +18,9 @@ public class MyRestController {
 
 	@RequestMapping("/roboter/ranger")
 	String roboter() throws Exception {
-		return new RoboterWriter().objectToXMLString(RangerManagement.getInstance().getRoboterData());
+		return RangerManagement.getInstance().getRoboterDataAsXML();
 	}
+
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(MyRestController.class, args);

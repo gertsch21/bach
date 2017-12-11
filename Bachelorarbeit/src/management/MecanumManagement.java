@@ -1,5 +1,6 @@
 package management;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
@@ -12,11 +13,11 @@ import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 import xmlmaker.RoboterWriter;
 
-public class RangerManagement {
+public class MecanumManagement  {
 	MbotClient mc;
-	private static RangerManagement instance;
+	private static MecanumManagement instance;
 	
-	private RangerManagement() {
+	private MecanumManagement() {
 	        try {
 	            // mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
 	            this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM4"));
@@ -34,15 +35,15 @@ public class RangerManagement {
 	        System.out.println("Ranger initialisiert");
 	}
 	
-	public static RangerManagement getInstance() {
+	public static MecanumManagement getInstance() {
 		if(instance == null) 
-			instance = new RangerManagement();
+			instance = new MecanumManagement();
 		return instance;
 	}
 	
 	
-	public static void main(String[] args) throws InterruptedException, JAXBException {
-		System.out.println("Start Rover Test");
+	public static void main(String[] args) throws InterruptedException, JAXBException, FileNotFoundException {
+		System.out.println("Start Mecanum Test");
 		//String comPort = "COM4";//Bluetooth
 		String comPort = "COM6";//USB
 		String xmlFilename = "Roboter.xml"; 

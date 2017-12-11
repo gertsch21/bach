@@ -1,5 +1,6 @@
 package management;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
@@ -12,15 +13,23 @@ import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 import xmlmaker.RoboterWriter;
 
+/**
+ * Singleton
+ * Diese Klasse ist fuer die Businesslogic des Rangers vorhanden, jegliche Informationen ueber den Ranger
+ * werden in dieser Klasse agglomeriert und weitergegeben, zudem koennen auch die befehle, welche der Ranger kann
+ * ueber diese klasse abgegeben werden
+ * @author Gerhard
+ *
+ */
 public class RangerManagement {
 	MbotClient mc;
-	private static RangerManagement instance;
+	RoboterWriter rw;
+	private static RangerManagement instance; //singleton
 	
 	private RangerManagement() {
 	        try {
 	            // mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
-	            this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM4"));
-
+	        	this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM4"));
 	        } catch (PortInUseException e) {
 	            e.printStackTrace();
 	        } catch (IOException e) {
@@ -29,6 +38,13 @@ public class RangerManagement {
 	            e.printStackTrace();
 	        } catch (NoSuchPortException e) {
 	            e.printStackTrace();
+	        } 
+	        
+	        
+	        try{
+	        	this.rw = new RoboterWriter();
+	        }catch (JAXBException e) {
+	        	e.printStackTrace();
 	        }
 
 	        System.out.println("Ranger initialisiert");
@@ -41,63 +57,71 @@ public class RangerManagement {
 	}
 	
 	
-	public static void main(String[] args) throws InterruptedException, JAXBException {
-		System.out.println("Start Rover Test");
-		//String comPort = "COM4";//Bluetooth
-		String comPort = "COM6";//USB
-		String xmlFilename = "Roboter.xml"; 
-		RoboterWriter rw = new RoboterWriter(xmlFilename);
-		MbotClient mc= null;
-		
-		try {
-			Roboter myRanger = new Roboter();
-			myRanger.setId(1);
-			myRanger.setName("myRanger");
-			myRanger.setfirma("Makeblock");
-			myRanger.setFahrbar(istFahrbar());
-			myRanger.setAbstandssensor(hatAbstandssensor());
-			myRanger.setLinefollower(hatLineFollower());
-			rw.serialize(myRanger);
-			Thread.sleep(2000);
-		    mc = new MbotClient(CommPortIdentifier.getPortIdentifier(comPort));
-		} catch (PortInUseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedCommOperationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchPortException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		Thread.sleep(3000);
-		if(mc!=null)
-			mc.close();
-		
-		System.out.println("Zuletzt gespeicherter Roboter: "+rw.deserialize());
-        System.out.println("program finished");
+	
+	/**
+	 * Diese Methode soll die aktuellen Daten vom Roboter in das XML File lokal zwischen speichern
+	 * NOCH NICHT FERTIG; NUR ZUM TESTEN!!!!!!!!!!!!!!!!!!!!
+	 * @throws JAXBException 
+	 */
+	public void saveCurrentRoboterData() throws JAXBException {
+		System.out.println("Starte:RangerManagement:saveCurrentRoboterData");
+		Roboter myRanger = new Roboter();
+		myRanger.setId(1);
+		myRanger.setName("myRanger");
+		myRanger.setfirma("Makeblock");
+		myRanger.setFahrbar(istFahrbar());
+		myRanger.setAbstandssensor(hatAbstandssensor());
+		myRanger.setLinefollower(hatLineFollower());
+		rw.serialize(myRanger);
 	}
 	
 	
 	
+	/**
+	 * soll nicht aus dem zwischengespeicherten file die Daten holen, sondern frisch vom Arduino
+	 * @return
+	 */
+	public Roboter getCurrentRoboterData() {
+		System.out.println("Starte:RangerManagement:getCurrentRoboterData");
+		try {
+			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
+			saveCurrentRoboterData();
+			return new RoboterWriter().deserialize();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	public String getCurrentRoboterDataAsXML() throws JAXBException {
+		System.out.println("Starte:RangerManagement:getCurrentRoboterDataAsXML");
+		return rw.objectToXMLString(getCurrentRoboterData());
+	}
 	
 	public Roboter getRoboterData() {
-		Roboter x = new Roboter();
-		x.setAbstandssensor(hatAbstandssensor());
-		x.setFahrbar(istFahrbar());
-		x.setfirma(getFirma());
-		x.setId(1);
-		x.setLinefollower(hatLineFollower());
-		x.setName(getName());
-		return x;
+		System.out.println("Starte:RangerManagement:getRoboterData");
+		Roboter vonXML_file=null;
+		try {
+			vonXML_file = rw.deserialize();
+		} catch (JAXBException e) {
+			System.err.println("RangerManagement:getRoboterData: Fehler beim Deserialisieren mit JAXB");
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.err.println("RangerManagement:getRoboterData: XML File nicht gefunden.");
+			return getCurrentRoboterData();//da noch keins vorhanden
+		}
+		
+		return vonXML_file;
+	}
+	
+	public String getRoboterDataAsXML() throws JAXBException  {
+		System.out.println("Starte:RangerManagement:getRoboterDataAsXML");
+		return rw.objectToXMLString(getRoboterData());
 	}
 	
 	

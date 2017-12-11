@@ -1,7 +1,11 @@
 package xmlmaker;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -33,7 +37,7 @@ public class RoboterWriter {
 	}
 	
 
-	public String objectToXMLString(Roboter x) throws Exception{
+	public String objectToXMLString(Roboter x) throws JAXBException{
 		StringWriter sw = new StringWriter();
 		marshaller.marshal(x, sw);
 		return sw.toString();
@@ -44,7 +48,11 @@ public class RoboterWriter {
 		marshaller.marshal(x, new File("files\\"+this.filename));
 	}
 	
-	public Roboter deserialize() throws JAXBException{
+	public Roboter deserialize() throws FileNotFoundException, JAXBException{
+		Path p = Paths.get("files\\"+this.filename);
+		boolean exists = Files.exists(p);
+		if(!exists) throw new FileNotFoundException();
+		
 		Object unmarshalled = this.unmarshaller.unmarshal(new File("files\\"+this.filename));
 		if(unmarshalled instanceof Roboter)
 			return (Roboter) unmarshalled;
@@ -65,7 +73,10 @@ public class RoboterWriter {
 		} catch (JAXBException e) {
 			System.err.println("Achtung: Fehler von JaxB!!");
 			e.printStackTrace();
-		}		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 
 
