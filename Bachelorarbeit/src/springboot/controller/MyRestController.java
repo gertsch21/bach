@@ -4,6 +4,7 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 
+import management.RangerManagement;
 import xmlmaker.RoboterWriter;
 import model.Roboter;
 
@@ -15,18 +16,9 @@ public class MyRestController {
 		return "Hello!";
 	}
 
-	@RequestMapping("/roboter")
+	@RequestMapping("/roboter/ranger")
 	String roboter() throws Exception {
-		Roboter x = new Roboter();
-		x.setfirma("Makeblock");
-		x.setId(1);
-		x.setAbstandssensor(true);
-		x.setFahrbar(true);
-		x.setName("Ranger");
-		x.setLinefollower(false);
-		RoboterWriter rw = new RoboterWriter();
-
-		return rw.objectToXMLString(x);
+		return new RoboterWriter().objectToXMLString(RangerManagement.getInstance().getRoboterData());
 	}
 
 	public static void main(String[] args) throws Exception {

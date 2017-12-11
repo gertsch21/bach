@@ -1,4 +1,4 @@
-package roboter;
+package management;
 
 import java.io.IOException;
 
@@ -12,8 +12,35 @@ import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 import xmlmaker.RoboterWriter;
 
-public class RangerGerhard {
+public class RangerManagement {
+	MbotClient mc;
+	private static RangerManagement instance;
+	
+	private RangerManagement() {
+	        try {
+	            // mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
+	            this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM4"));
 
+	        } catch (PortInUseException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (UnsupportedCommOperationException e) {
+	            e.printStackTrace();
+	        } catch (NoSuchPortException e) {
+	            e.printStackTrace();
+	        }
+
+	        System.out.println("Ranger initialisiert");
+	}
+	
+	public static RangerManagement getInstance() {
+		if(instance == null) 
+			instance = new RangerManagement();
+		return instance;
+	}
+	
+	
 	public static void main(String[] args) throws InterruptedException, JAXBException {
 		System.out.println("Start Rover Test");
 		//String comPort = "COM4";//Bluetooth
@@ -59,14 +86,36 @@ public class RangerGerhard {
         System.out.println("program finished");
 	}
 	
-	public static boolean istFahrbar() {
+	
+	
+	
+	public Roboter getRoboterData() {
+		Roboter x = new Roboter();
+		x.setAbstandssensor(hatAbstandssensor());
+		x.setFahrbar(istFahrbar());
+		x.setfirma(getFirma());
+		x.setId(1);
+		x.setLinefollower(hatLineFollower());
+		x.setName(getName());
+		return x;
+	}
+	
+	
+	private static boolean istFahrbar() {
 		return true;
 	}
-	public static  boolean hatAbstandssensor() {
+	private static  boolean hatAbstandssensor() {
 		return false;
 	}
-	public static  boolean hatLineFollower() {
+	private static  boolean hatLineFollower() {
 		return false;
+	}
+	private static String getFirma() {
+		return "Makeblock";
+	}
+	private static String getName() {
+		return "Makeblock Ranger";
 	}
 
+	
 }
