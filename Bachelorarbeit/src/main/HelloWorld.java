@@ -11,6 +11,7 @@ public class HelloWorld {
 		System.out.println("Starte main!");
 		
 		try {
+			System.setProperty("javax.xml.bind.JAXBContextFactory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
 			RoboterWriter writer = new RoboterWriter();
 			
 			Roboter toFile = new Roboter(1,"Rover","Makeblock",true);
