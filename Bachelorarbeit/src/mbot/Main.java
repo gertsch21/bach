@@ -20,7 +20,7 @@ import mbot.client.Port;
  * @author    Martin Kunz <martin.michael.kunz@gmail.com>
  */
 public class Main implements IMbotEvent {
-    private static String comPortName="COM7";
+    private static String comPortName="COM5";
     public static void main(String [ ] args)
     {
 	System.out.println("Main gestartet");

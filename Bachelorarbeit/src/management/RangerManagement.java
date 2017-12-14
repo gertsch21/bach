@@ -25,15 +25,15 @@ import xmlmaker.RoboterWriter;
  */
 public class RangerManagement implements IMbotEvent {
 	private int comPort;
-	private MbotClient mc;
+	private static MbotClient mc;
 	private RoboterWriter rw;
 	private static RangerManagement instance; // singleton
 
 	private RangerManagement()  {
-		System.out.println(this.mc);
-		System.out.println("COM Port");
+		System.out.println("Rangermanagement:Defaultkonstruktor");
+		this.comPort = 6;
+		System.out.println("COM Port benutzt: "+this.comPort);
 		try {
-			this.comPort = 7;
 			// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
 			this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + comPort));
 			this.mc.addListener(this);
@@ -69,6 +69,7 @@ public class RangerManagement implements IMbotEvent {
 	}
 
 	public static RangerManagement getInstance() {
+		System.out.println("Rangermanagement:getInstance");
 		if (instance == null)
 			instance = new RangerManagement();
 		return instance;
@@ -171,6 +172,21 @@ public class RangerManagement implements IMbotEvent {
 	public void onButton(boolean pressed) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	
+	public static void testMove() throws Exception {
+		mc.encoderMotorLeft(200);
+		mc.encoderMotorRight(-200);
+        Thread.sleep(2000);
+        mc.encoderMotorLeft(0);
+        mc.encoderMotorRight(0);
+        
+	}
+	
+	public static void testStop() throws Exception {
+		mc.encoderMotorLeft(0);
+		mc.encoderMotorRight(0);
 	}
 
 }

@@ -24,7 +24,7 @@ public class RoverTest {
             //COM6 --> for connecting via usb
             //COM4 --> for connectin via bluetooth
             // mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
-            mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM7"));
+            mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
             Thread.sleep(0); //that don't have to remove and add the catch part during testing
 
 
