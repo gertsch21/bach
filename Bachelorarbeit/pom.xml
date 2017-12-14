@@ -89,7 +89,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.4</version>
 				<configuration>
-					<mainClass>package.yourclasstorun</mainClass>
+					<mainClass>test.CommPortTests</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
