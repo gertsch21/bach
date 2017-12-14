@@ -177,16 +177,24 @@ public class RangerManagement implements IMbotEvent {
 
 	}
 
-	public static void testMove() throws Exception {
+	public static void moveForward(int sec) throws Exception {
 		mc.encoderMotorLeft(200);
 		mc.encoderMotorRight(-200);
-		Thread.sleep(2000);
+		Thread.sleep(sec*1000);
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
-
 	}
+	
+	public static void moveBackward(int sec) throws Exception {
+		mc.encoderMotorLeft(-200);
+		mc.encoderMotorRight(200);
+		Thread.sleep(sec*1000);
+		mc.encoderMotorLeft(0);
+		mc.encoderMotorRight(0);
+	}
+	
 
-	public static void testStop() throws Exception {
+	public static void stop() throws Exception {
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
 	}

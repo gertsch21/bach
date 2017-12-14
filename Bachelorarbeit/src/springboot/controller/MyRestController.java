@@ -20,14 +20,19 @@ public class MyRestController {
 	String roboter() throws Exception {
 		return RangerManagement.getInstance().getRoboterDataAsXML();
 	}
-	@RequestMapping("/roboter/ranger/move")
-	String roboterMove() throws Exception {
-		RangerManagement.getInstance().testMove();
+	@RequestMapping("/roboter/ranger/moveForward")
+	String moveForward() throws Exception {
+		RangerManagement.getInstance().moveForward(2);
 		return "Roboter faehrt vorwaerts";
+	}
+	@RequestMapping("/roboter/ranger/moveBackward")
+	String moveBackward() throws Exception {
+		RangerManagement.getInstance().moveBackward(2);
+		return "Roboter faehrt zurück";
 	}
 	@RequestMapping("/roboter/ranger/stop")
 	String roboterStop() throws Exception {
-		
+		RangerManagement.getInstance().stop();
 		return "Roboter steht";
 	}
 	
