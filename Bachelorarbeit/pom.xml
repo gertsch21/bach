@@ -65,8 +65,8 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<!-- <mainClass>springboot.controller.MyRestController</mainClass> -->
-							<mainClass>test.CommPortTests</mainClass>
+							<mainClass>springboot.controller.MyRestController</mainClass>
+							<!-- <mainClass>test.CommPortTests</mainClass> -->
 						</manifest>
 					</archive>
 				</configuration>
