@@ -20,7 +20,7 @@ import mbot.client.Port;
  * @author    Martin Kunz <martin.michael.kunz@gmail.com>
  */
 public class Main implements IMbotEvent {
-    private static String comPortName="COM3";
+    private static String comPortName="COM7";
     public static void main(String [ ] args)
     {
 	System.out.println("Main gestartet");
@@ -36,7 +36,7 @@ public class Main implements IMbotEvent {
         try(MbotClient mc=new MbotClient(CommPortIdentifier.getPortIdentifier(comPortName))) {
             mc.addListener(this);
             mc.reset();
-            ledDemo(mc,2);
+            ledDemo(mc,10);
             // mc.mecanum(0,0,0);
             //soundDemo(mc);
             //gyroDemo(mc);
@@ -62,7 +62,8 @@ public class Main implements IMbotEvent {
         }
     }
     private void ledDemo(MbotClient mc, int seconds) throws IOException {
-        for(int i=0;i<seconds*2;i++) {
+        System.out.println("led demo");
+    	for(int i=0;i<seconds*2;i++) {
             mc.rgbLEDOnboard(1, 255, 0, 0);
             mc.rgbLEDOnboard(2, 0, 0, 255);
             trySleep(250);

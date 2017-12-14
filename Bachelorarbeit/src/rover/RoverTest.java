@@ -24,7 +24,7 @@ public class RoverTest {
             //COM6 --> for connecting via usb
             //COM4 --> for connectin via bluetooth
             // mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
-            mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM4"));
+            mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM7"));
             Thread.sleep(0); //that don't have to remove and add the catch part during testing
 
 
@@ -69,30 +69,30 @@ public class RoverTest {
             /*-------------------------------------------------------
             test light sensor
             ---------------------------------------------------------- */
-            /*for(int i=0;i<15;i++){
+            for(int i=0;i<15;i++){
                 System.out.println("light sensor 1: "+mc.readLightSensorAuriga(12));
                 System.out.println("light sensor 2: "+mc.readLightSensorAuriga(11));
                 Thread.sleep(300);
-            }*/
+            }
            // System.out.println("light sensor: "+mc.readLightSensorAuriga(11));
 
 
             /*-------------------------------------------------------
             test sound sensor
             ---------------------------------------------------------- */
-            /*for(int i=0;i<15;i++){
+            for(int i=0;i<15;i++){
                 System.out.println("Sound sensor: "+mc.readSoundSensorAuriga(14));
                 Thread.sleep(250);
             }
-*/
+
 
            /*-------------------------------------------------------
             test onboard temp sensor
             ---------------------------------------------------------- */
-          /* for(int i=0;i<10;i++){
+           for(int i=0;i<10;i++){
                System.out.println("onboard temp: "+mc.readTempSensorOnboardAuriga());
                Thread.sleep(250);
-           }*/
+           }
 
 
            /*-------------------------------------------------------

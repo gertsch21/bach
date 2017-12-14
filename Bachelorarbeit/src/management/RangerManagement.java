@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
+import mbot.client.IMbotEvent;
 import mbot.client.MbotClient;
 import model.Roboter;
 import purejavacomm.CommPortIdentifier;
@@ -22,27 +23,42 @@ import xmlmaker.RoboterWriter;
  * @author Gerhard
  *
  */
-public class RangerManagement {
-	MbotClient mc;
-	RoboterWriter rw;
+public class RangerManagement implements IMbotEvent {
+	private int comPort;
+	private MbotClient mc;
+	private RoboterWriter rw;
 	private static RangerManagement instance; // singleton
 
-	private RangerManagement() {
-		for(int i=1;i<10 || this.mc!=null;i++) {
-			System.out.println("COM Port" +i);
-			try {
-				// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
-				this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM"+i));
-			} catch (PortInUseException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (UnsupportedCommOperationException e) {
-				e.printStackTrace();
-			} catch (NoSuchPortException e) {
-				e.printStackTrace();
+	private RangerManagement()  {
+		System.out.println(this.mc);
+		System.out.println("COM Port");
+		try {
+			this.comPort = 7;
+			// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
+			this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + comPort));
+			this.mc.addListener(this);
+			this.mc.reset();
+			for (int i = 0; i < 15; i++) {
+				System.out.println("Sound sensor: " + mc.readSoundSensorAuriga(14));
+				System.out.println("onboard temp: " + mc.readTempSensorOnboardAuriga());
+				mc.rbgLEDAuriga(i,0,100,0);
+				Thread.sleep(250);
 			}
+
+			System.out.println("MC: " + mc);
+
+		} catch (PortInUseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (UnsupportedCommOperationException e) {
+			e.printStackTrace();
+		} catch (NoSuchPortException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println("OHOH Exception unknown");
 		}
+
 		try {
 			this.rw = new RoboterWriter();
 		} catch (JAXBException e) {
@@ -56,6 +72,13 @@ public class RangerManagement {
 		if (instance == null)
 			instance = new RangerManagement();
 		return instance;
+	}
+
+	private void gyroDemo(MbotClient mc) {
+		float x = mc.readGyro(1);
+		float y = mc.readGyro(2);
+		float z = mc.readGyro(3);
+		System.out.println(String.format("%.2f %.2f %.2f", x, y, z));
 	}
 
 	/**
@@ -142,6 +165,12 @@ public class RangerManagement {
 
 	private static String getName() {
 		return "Makeblock Ranger";
+	}
+
+	@Override
+	public void onButton(boolean pressed) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
