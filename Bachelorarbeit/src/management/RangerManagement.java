@@ -33,32 +33,35 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Rangermanagement:Defaultkonstruktor");
 		this.comPort = 6;
 		System.out.println("COM Port benutzt: "+this.comPort);
-		try {
-			// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
-			this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + comPort));
-			this.mc.addListener(this);
-			this.mc.reset();
-			for (int i = 0; i < 15; i++) {
-				System.out.println("Sound sensor: " + mc.readSoundSensorAuriga(14));
-				System.out.println("onboard temp: " + mc.readTempSensorOnboardAuriga());
-				mc.rbgLEDAuriga(i,0,100,0);
-				Thread.sleep(250);
+		
+		for(int i = 0; i<10;i++) {
+			try {
+				// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
+				
+				this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + i));
+				this.mc.addListener(this);
+				this.mc.reset();
+				for (int j = 0; i < 15; i++) {
+					System.out.println("Sound sensor: " + mc.readSoundSensorAuriga(14));
+					System.out.println("onboard temp: " + mc.readTempSensorOnboardAuriga());
+					mc.rbgLEDAuriga(j,0,100,0);
+					Thread.sleep(250);
+				}
+	
+				System.out.println("MC: " + mc);
+	
+			} catch (PortInUseException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (UnsupportedCommOperationException e) {
+				e.printStackTrace();
+			} catch (NoSuchPortException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				System.err.println("OHOH Exception unknown");
 			}
-
-			System.out.println("MC: " + mc);
-
-		} catch (PortInUseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (UnsupportedCommOperationException e) {
-			e.printStackTrace();
-		} catch (NoSuchPortException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			System.err.println("OHOH Exception unknown");
 		}
-
 		try {
 			this.rw = new RoboterWriter();
 		} catch (JAXBException e) {
