@@ -23,12 +23,12 @@ public class MyRestController {
 	@RequestMapping("/roboter/ranger/moveForward")
 	String moveForward() throws Exception {
 		RangerManagement.getInstance().moveForward(2);
-		return "Roboter faehrt vorwaerts";
+		return "Roboter faehrt vorwärts";
 	}
 	@RequestMapping("/roboter/ranger/moveBackward")
 	String moveBackward() throws Exception {
 		RangerManagement.getInstance().moveBackward(2);
-		return "Roboter faehrt zur�ck";
+		return "Roboter faehrt zurück";
 	}
 	@RequestMapping("/roboter/ranger/stop")
 	String roboterStop() throws Exception {
