@@ -39,6 +39,7 @@ public class RangerManagement implements IMbotEvent {
 				// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
 				
 				this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + i));
+				System.out.println("Funktioniert: "+i);
 				this.mc.addListener(this);
 				this.mc.reset();
 				for (int j = 0; i < 15; i++) {
