@@ -16,8 +16,7 @@ import test.UserEingabeRanger;
 @RestController
 @EnableAutoConfiguration
 public class MyRestController {
-	
-	
+
 	@RequestMapping("/")
 	String hello() {
 		try {
@@ -37,34 +36,31 @@ public class MyRestController {
 		}
 		return "interner Fehler";
 	}
-	
-	
+
 	@RequestMapping(value = "/roboter/ranger", method = RequestMethod.POST)
-	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result) throws Exception{
+	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
+			throws Exception {
 		System.out.println("POST /roboter/ranger");
-		System.out.println("Dauer: " + formData.getDauer());
-		
+
+		int gesch = 0;
+		int dauer = 0;
+		try {
+			gesch = Integer.valueOf(formData.getGeschwindigkeit());
+			dauer = Integer.valueOf(formData.getDauer());
+			RangerManagement.getInstance().moveForward(gesch, dauer);
+		} catch (NumberFormatException e) {
+			System.err.println("MyRequestController:roboterDoSomething: Fehler, da keine Zahl uebergeben wurde");
+			e.printStackTrace();
+		}
+
 		return roboter();
 	}
-	
-	
-	
-	@GetMapping("/roboter/ranger/moveForward")
-	String moveForward() throws Exception {
-		return "Roboter faehrt vorwärts";
-	}
-	@GetMapping("/roboter/ranger/moveBackward")
-	String moveBackward() throws Exception {
-		RangerManagement.getInstance().moveBackward(2);
-		return "Roboter faehrt zurück";
-	}
+
 	@GetMapping("/roboter/ranger/stop")
 	String roboterStop() throws Exception {
 		RangerManagement.getInstance().stop();
 		return "Roboter steht";
 	}
-	
-
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(MyRestController.class, args);
