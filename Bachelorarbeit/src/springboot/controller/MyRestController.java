@@ -17,7 +17,7 @@ public class MyRestController {
 	@RequestMapping("/")
 	String hello() {
 		try {
-			return new FileLoader("files/Startseite.html	").getTextFromFile();
+			return new FileLoader("files/Startseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
