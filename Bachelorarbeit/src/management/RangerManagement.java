@@ -72,7 +72,6 @@ public class RangerManagement implements IMbotEvent {
 	}
 
 	public static RangerManagement getInstance() {
-		System.out.println("Rangermanagement:getInstance");
 		if (instance == null)
 			instance = new RangerManagement();
 		return instance;

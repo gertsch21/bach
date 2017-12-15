@@ -61,12 +61,20 @@ public class MbotClient implements Runnable, AutoCloseable {
     public final static byte REMOTE_9 = 0x4A;
 
 
+    //die streams, zu de
     private final InputStream portIS;
     private final OutputStream portOS;
+    
     private SerialPort serialPort;
+    
+    //auf der queue sind lauter results von dem was vom robi kommt
     Set<LinkedBlockingQueue<Result>> subscribers = Collections.synchronizedSet(new HashSet(new LinkedBlockingQueue<>()));
+    
+    
     Set<IMbotEvent> externalSubscribers = Collections.synchronizedSet(new HashSet<>());
+    
     private volatile boolean running = true;
+    
     private Thread thread;
 
     // #define GET 1
@@ -75,7 +83,7 @@ public class MbotClient implements Runnable, AutoCloseable {
     // #define START 5
 
     public MbotClient(CommPortIdentifier portid) throws PortInUseException, IOException, UnsupportedCommOperationException {
-        serialPort = (SerialPort) portid.open("asdf", 3500);
+        serialPort = (SerialPort) portid.open("egalo", 3500);
         serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
         serialPort.setSerialPortParams(115200, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
                 SerialPort.PARITY_NONE);
@@ -484,10 +492,10 @@ public class MbotClient implements Runnable, AutoCloseable {
                         break; //send again ich komm nur aus der einen schleife heraus
 
                     if (r.result == null) {
-                        if (type == Void.class) //falls also nix vom roboter zurueckkommen sollte
+                        if (type == Void.class) //falls also nix vom roboter zurueckkommen sollte, aber eine Meldung das er fertig is
                             return r;
                     } else {
-                        if (type.isAssignableFrom(r.result.getClass())) { 
+                        if (type.isAssignableFrom(r.result.getClass())) {  //pruefen ob eh richtiger typ zurueckkommt, wie abgefragt
                             return r;
                         }
                     }
