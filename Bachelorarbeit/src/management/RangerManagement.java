@@ -37,17 +37,19 @@ public class RangerManagement implements IMbotEvent {
 		try {
 			// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
 
-			//this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + comPort)); 
+			// this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" +
+			// comPort));
 			this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("ttyUSB0"));
 			this.mc.addListener(this);
 			this.mc.reset();
-			for (int j = 0; j < 15; j++) {
-				System.out.println("Sound sensor: " + mc.readSoundSensorAuriga(14));
-				System.out.println("onboard temp: " + mc.readTempSensorOnboardAuriga());
+			// for (int j = 0; j < 15; j++) {
+			// System.out.println("Sound sensor: " + mc.readSoundSensorAuriga(14));
+			// System.out.println("onboard temp: " + mc.readTempSensorOnboardAuriga());
+			// mc.rbgLEDAuriga(j, 0, 100, 0);
+			// Thread.sleep(250);
+			// }
+			for (int j = 0; j < 15; j++)
 				mc.rbgLEDAuriga(j, 0, 100, 0);
-				Thread.sleep(250);
-			}
-
 			System.out.println("MC: " + mc);
 
 		} catch (PortInUseException e) {
@@ -179,19 +181,18 @@ public class RangerManagement implements IMbotEvent {
 	public static void moveForward(int sec) throws Exception {
 		mc.encoderMotorLeft(200);
 		mc.encoderMotorRight(-200);
-		Thread.sleep(sec*1000);
+		Thread.sleep(sec * 1000);
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
 	}
-	
+
 	public static void moveBackward(int sec) throws Exception {
 		mc.encoderMotorLeft(-200);
 		mc.encoderMotorRight(200);
-		Thread.sleep(sec*1000);
+		Thread.sleep(sec * 1000);
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
 	}
-	
 
 	public static void stop() throws Exception {
 		mc.encoderMotorLeft(0);

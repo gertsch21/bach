@@ -2,7 +2,9 @@ package springboot.controller;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import management.FileLoader;
 import management.RangerManagement;
@@ -26,8 +28,23 @@ public class MyRestController {
 
 	@GetMapping("/roboter/ranger")
 	String roboter() throws Exception {
-		return RangerManagement.getInstance().getRoboterDataAsXML();
+		try {
+			return new FileLoader("files/RangerSteuerseite.html").getTextFromFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "interner Fehler";
 	}
+	
+	
+	@PostMapping("/roboter/ranger")
+	String roboterDoSomething(ModelMap modelMap) throws Exception{
+		System.out.println(modelMap.get("geschwindigkeit")+" "+modelMap.get("dauer"));
+		return roboter();
+	}
+	
+	
+	
 	@GetMapping("/roboter/ranger/moveForward")
 	String moveForward() throws Exception {
 		return "Roboter faehrt vorwärts";
