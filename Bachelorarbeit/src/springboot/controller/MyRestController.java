@@ -3,6 +3,7 @@ package springboot.controller;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,6 +11,7 @@ import management.FileLoader;
 import management.RangerManagement;
 import xmlmaker.RoboterWriter;
 import model.Roboter;
+import test.UserEingabeRanger;
 
 @RestController
 @EnableAutoConfiguration
@@ -37,9 +39,11 @@ public class MyRestController {
 	}
 	
 	
-	@PostMapping("/roboter/ranger")
-	String roboterDoSomething(ModelMap modelMap) throws Exception{
-		System.out.println(modelMap.get("geschwindigkeit")+" "+modelMap.get("dauer"));
+	@RequestMapping(value = "/roboter/ranger", method = RequestMethod.POST)
+	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result) throws Exception{
+		System.out.println("POST /roboter/ranger");
+		System.out.println("Dauer: " + formData.getDauer());
+		
 		return roboter();
 	}
 	
