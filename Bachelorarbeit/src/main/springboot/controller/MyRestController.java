@@ -68,6 +68,19 @@ public class MyRestController {
 	}
 	
 	
+	@GetMapping("/ueber")
+	String ueber() throws Exception {
+		try {
+			return new FileLoader("src/main/resources/static/html/Ueberseite.html").getTextFromFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "interner Fehler";
+	}
+	
+
+	
+	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(MyRestController.class, args);
 	}

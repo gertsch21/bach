@@ -33,13 +33,7 @@
 			<version>1.0.1</version>
 		</dependency>
 
-		<!-- Zugriff auf plattformspezifische („native“) dynamische Programmbibliotheken 
-			(DLLs in Windows oder „shared libraries“ auf anderen Systemen) -->
-		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna</artifactId>
-			<version>4.2.2</version>
-		</dependency>
+
 
 		<!-- zum besseren loggen und ausgeben von Information -->
 		<dependency>
