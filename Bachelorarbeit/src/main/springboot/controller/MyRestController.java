@@ -30,7 +30,7 @@ public class MyRestController {
 	@GetMapping("/roboter/ranger")
 	String roboter() throws Exception {
 		try {
-			return new FileLoader("src/main/resources/html/RangerSteuerseite.html").getTextFromFile();
+			return new FileLoader("src/main/resources/html/Steuerseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
