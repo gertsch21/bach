@@ -1,4 +1,4 @@
-package mbot;
+package main.mbot;
 
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
@@ -8,9 +8,9 @@ import purejavacomm.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import mbot.client.IMbotEvent;
-import mbot.client.MbotClient;
-import mbot.client.Port;
+import main.mbot.client.IMbotEvent;
+import main.mbot.client.MbotClient;
+import main.mbot.client.Port;
 
 /**
  * Simple test program fir mBot client library;

@@ -1,4 +1,4 @@
-package drawbot;
+package main.drawbot;
 
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
@@ -7,7 +7,7 @@ import purejavacomm.UnsupportedCommOperationException;
 
 import java.io.IOException;
 
-import mbot.client.MDrawBotClient;
+import main.mbot.client.MDrawBotClient;
 
 /**
  * This class was created to test the function of the MDrawBotClient and to show how the functions can be called.

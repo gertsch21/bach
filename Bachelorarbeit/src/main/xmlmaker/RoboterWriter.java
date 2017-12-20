@@ -1,4 +1,4 @@
-package xmlmaker;
+package main.xmlmaker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import model.Roboter;
+import main.model.Roboter;
 
 public class RoboterWriter {
 

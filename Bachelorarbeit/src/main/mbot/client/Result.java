@@ -1,4 +1,4 @@
-package mbot.client;
+package main.mbot.client;
 
 /**
  * @author    Martin Kunz <martin.michael.kunz@gmail.com>

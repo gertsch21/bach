@@ -1,18 +1,18 @@
-package management;
+package main.management;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
-import mbot.client.IMbotEvent;
-import mbot.client.MbotClient;
-import model.Roboter;
+import main.mbot.client.IMbotEvent;
+import main.mbot.client.MbotClient;
+import main.model.Roboter;
+import main.xmlmaker.RoboterWriter;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
-import xmlmaker.RoboterWriter;
 
 /**
  * Singleton Diese Klasse ist fuer die Businesslogic des Rangers vorhanden,

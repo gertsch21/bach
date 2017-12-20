@@ -1,4 +1,4 @@
-package mbot.client;
+package main.mbot.client;
 
 /**
  * Device IDs from mBot firmware files(mbot_firmware.ino, orion_firmware.ino)

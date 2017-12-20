@@ -19,20 +19,29 @@
 
 
 	<dependencies>
+
+		<!-- Spring fuer Restcontroller und Dependency injection -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- um auf die commPorts zugreifen zu koennen -->
 		<dependency>
 			<groupId>com.sparetimelabs</groupId>
 			<artifactId>purejavacomm</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+
+		<!-- Zugriff auf plattformspezifische („native“) dynamische Programmbibliotheken 
+			(DLLs in Windows oder „shared libraries“ auf anderen Systemen) -->
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna</artifactId>
 			<version>4.2.2</version>
 		</dependency>
+
+		<!-- zum besseren loggen und ausgeben von Information -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -44,6 +53,13 @@
 			<version>1.7.21</version>
 		</dependency>
 
+		<!-- fuer unit tests -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -65,7 +81,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>springboot.controller.MyRestController</mainClass>
+							<mainClass>main.springboot.controller.MyRestController</mainClass>
 							<!-- <mainClass>test.CommPortTests</mainClass> -->
 						</manifest>
 					</archive>
@@ -86,6 +102,19 @@
 				</executions>
 			</plugin>
 
+			<!-- fuer integrationtests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>

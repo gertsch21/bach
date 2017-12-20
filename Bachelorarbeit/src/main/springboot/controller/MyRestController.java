@@ -1,4 +1,4 @@
-package springboot.controller;
+package main.springboot.controller;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -7,10 +7,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import management.FileLoader;
-import management.RangerManagement;
-import xmlmaker.RoboterWriter;
-import model.Roboter;
+import main.management.FileLoader;
+import main.management.RangerManagement;
+import main.model.Roboter;
+import main.xmlmaker.RoboterWriter;
 import test.UserEingabeRanger;
 
 @RestController

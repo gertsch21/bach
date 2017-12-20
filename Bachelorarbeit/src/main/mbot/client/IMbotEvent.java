@@ -1,4 +1,4 @@
-package mbot.client;
+package main.mbot.client;
 
 /**
  * Event Interface for mBot onboard button

@@ -1,4 +1,4 @@
-package rover;
+package main.rover;
 
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
@@ -7,7 +7,7 @@ import purejavacomm.UnsupportedCommOperationException;
 
 import java.io.IOException;
 
-import mbot.client.MbotClient;
+import main.mbot.client.MbotClient;
 
 /**
  * Created by Christian Muck

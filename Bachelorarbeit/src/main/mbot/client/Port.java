@@ -1,4 +1,4 @@
-package mbot.client;
+package main.mbot.client;
 
 /**
  * Port and Slot IDs as defined in MePort.h

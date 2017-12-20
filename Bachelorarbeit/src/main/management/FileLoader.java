@@ -1,4 +1,4 @@
-package management;
+package main.management;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
