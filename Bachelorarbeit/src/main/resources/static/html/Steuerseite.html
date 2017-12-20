@@ -1,22 +1,72 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>RangerSteuerseite</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Gerhard">
+
+<title>Ranger Steuerseite</title>
+
+<!-- To ensure proper rendering and touch zooming for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap.css" rel="stylesheet">
+
 </head>
 <body>
 
-	<form action="#" method="POST" modelAttribute="userFormData">
-	  Geschwindigkeit[80-250]:<br>
-	  <input type="text" name="geschwindigkeit">
-	  <br>
-	  Dauer[s]:<br>
-	  <input type="text" name="dauer" value="1">
-	  <br><br>
-	  <input type="submit" value="Submit">
-	</form> 
+	<div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills float-right">
+					<li class="nav-item"><a class="nav-link active" href="#">Start
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/steuern">Steuerung</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Konfiguration</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Über</a></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Ranger Selbstidentifikation</h3>
+		</div>
+
+		<div class="jumbotron">
+			<h1 class="display-3">Steuerung</h1>
+			<form action="/steuern" method="POST" modelAttribute="userFormData">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-3 col-form-label">Geschwindigkeit[80-250]</label>
+					<div class="col-10">
+						<input class="form-control" type="text" name="geschwindigkeit"
+							id="geschwindigkeit" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="example-text-input" class="col-3 col-form-label">Dauer[s]</label>
+					<div class="col-10">
+						<input class="form-control" type="text" name="dauer" id="dauer" />
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Primary</button>
+				
+			</form>
 
 
+
+		</div>
+
+
+
+		<footer class="footer">
+			<p>&copy; Gerhard Schmidt</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
 </body>
 </html>
