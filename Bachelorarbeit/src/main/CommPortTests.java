@@ -1,4 +1,4 @@
-package test;
+package main;
 
 import java.util.Enumeration;
 import java.util.NoSuchElementException;

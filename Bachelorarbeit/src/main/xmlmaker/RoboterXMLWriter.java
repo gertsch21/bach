@@ -14,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 
 import main.model.Roboter;
 
-public class RoboterWriter {
+public class RoboterXMLWriter {
 
 	private String filename;
 	private JAXBContext context;
@@ -22,10 +22,10 @@ public class RoboterWriter {
 	private Unmarshaller unmarshaller;
 	
 
-	public RoboterWriter() throws JAXBException {
+	public RoboterXMLWriter() throws JAXBException {
 		this("Roboter.xml");
 	}
-	public RoboterWriter(String filename) throws JAXBException {
+	public RoboterXMLWriter(String filename) throws JAXBException {
 		this.context = JAXBContext.newInstance(Roboter.class);
 		
 		this.marshaller = this.context.createMarshaller();
@@ -63,7 +63,7 @@ public class RoboterWriter {
 	
 	public static void main(String[] args) {
 		try {
-			RoboterWriter writer = new RoboterWriter();
+			RoboterXMLWriter writer = new RoboterXMLWriter();
 			
 			Roboter toFile = new Roboter();
 			writer.serialize(toFile);

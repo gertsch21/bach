@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBException;
 import main.mbot.client.IMbotEvent;
 import main.mbot.client.MbotClient;
 import main.model.Roboter;
-import main.xmlmaker.RoboterWriter;
+import main.xmlmaker.RoboterXMLWriter;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
@@ -26,7 +26,7 @@ import purejavacomm.UnsupportedCommOperationException;
 public class RangerManagement implements IMbotEvent {
 	private int comPort;
 	private static MbotClient mc;
-	private RoboterWriter rw;
+	private RoboterXMLWriter rw;
 	private static RangerManagement instance; // singleton
 
 	private RangerManagement() {
@@ -37,21 +37,15 @@ public class RangerManagement implements IMbotEvent {
 		try {
 			// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
 
-			// this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" +
-			// comPort));
-			this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("ttyUSB0"));
+			// this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM" + comPort)); //nur fuer windows
+			this.mc = new MbotClient(CommPortIdentifier.getPortIdentifier("ttyUSB0")); //nur fuer Raspian
 			this.mc.addListener(this);
 			this.mc.reset();
-			// for (int j = 0; j < 15; j++) {
-			// System.out.println("Sound sensor: " + mc.readSoundSensorAuriga(14));
-			// System.out.println("onboard temp: " + mc.readTempSensorOnboardAuriga());
-			// mc.rbgLEDAuriga(j, 0, 100, 0);
-			// Thread.sleep(250);
-			// }
+			
+			//nur damit man sieht(wird gruen) wenn raspberry auf ranger zugreift
 			for (int j = 0; j < 15; j++)
 				mc.rbgLEDAuriga(j, 0, 100, 0);
-			System.out.println("MC: " + mc);
-
+			
 		} catch (PortInUseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -65,7 +59,7 @@ public class RangerManagement implements IMbotEvent {
 		}
 
 		try {
-			this.rw = new RoboterWriter();
+			this.rw = new RoboterXMLWriter();
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
@@ -79,6 +73,8 @@ public class RangerManagement implements IMbotEvent {
 		return instance;
 	}
 
+
+	
 	private void gyroDemo(MbotClient mc) {
 		float x = mc.readGyro(1);
 		float y = mc.readGyro(2);
@@ -115,7 +111,7 @@ public class RangerManagement implements IMbotEvent {
 		try {
 			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
 			saveCurrentRoboterData();
-			return new RoboterWriter().deserialize();
+			return new RoboterXMLWriter().deserialize();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

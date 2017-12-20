@@ -7,11 +7,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import main.UserEingabeRanger;
 import main.management.FileLoader;
 import main.management.RangerManagement;
 import main.model.Roboter;
-import main.xmlmaker.RoboterWriter;
-import test.UserEingabeRanger;
+import main.xmlmaker.RoboterXMLWriter;
 
 @RestController
 @EnableAutoConfiguration
@@ -20,7 +20,7 @@ public class MyRestController {
 	@RequestMapping("/")
 	String hello() {
 		try {
-			return new FileLoader("files/Startseite.html").getTextFromFile();
+			return new FileLoader("src/main/resources/html/Startseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,7 +30,7 @@ public class MyRestController {
 	@GetMapping("/roboter/ranger")
 	String roboter() throws Exception {
 		try {
-			return new FileLoader("files/RangerSteuerseite.html").getTextFromFile();
+			return new FileLoader("src/main/resources/html/RangerSteuerseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,7 +40,7 @@ public class MyRestController {
 	@RequestMapping(value = "/roboter/ranger", method = RequestMethod.POST)
 	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
 			throws Exception {
-		System.out.println("POST /roboter/ranger");
+		System.out.println("POST Request auf /roboter/ranger");
 
 		int gesch = 0;
 		int dauer = 0;
@@ -56,11 +56,6 @@ public class MyRestController {
 		return roboter();
 	}
 
-	@GetMapping("/roboter/ranger/stop")
-	String roboterStop() throws Exception {
-		RangerManagement.getInstance().stop();
-		return "Roboter steht";
-	}
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(MyRestController.class, args);
