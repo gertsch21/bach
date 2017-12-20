@@ -45,11 +45,11 @@ public class RoboterXMLWriter {
 	
 	
 	public void serialize(Roboter x) throws JAXBException{
-		marshaller.marshal(x, new File("files\\"+this.filename));
+		marshaller.marshal(x, new File("src/main/resources/xml/"+this.filename));
 	}
 	
 	public Roboter deserialize() throws FileNotFoundException, JAXBException{
-		Path p = Paths.get("files\\"+this.filename);
+		Path p = Paths.get("src/main/resources/xml/"+this.filename);
 		boolean exists = Files.exists(p);
 		if(!exists) throw new FileNotFoundException();
 		
