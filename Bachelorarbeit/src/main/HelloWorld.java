@@ -11,5 +11,5 @@ public class HelloWorld{
 	
 	public int return1() {return 1;}
 	public int return2() {return 2;}
-	public int return3() {return 1;}
+	public int return3() {return 3;}
 }
