@@ -57,6 +57,17 @@ public class MyRestController {
 	}
 
 
+	@GetMapping("/konfigurieren")
+	String konfigurieren() throws Exception {
+		try {
+			return new FileLoader("src/main/resources/static/html/Konfigurationsseite.html").getTextFromFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "interner Fehler";
+	}
+	
+	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(MyRestController.class, args);
 	}

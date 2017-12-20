@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="Gerhard">
 
-<title>Ranger Steuerseite</title>
+<title>Ranger Konfigurationsseite</title>
 
 <!-- To ensure proper rendering and touch zooming for mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,10 +24,10 @@
 				<ul class="nav nav-pills float-right">
 					<li class="nav-item"><a class="nav-link" href="/">Start
 					</a></li>
-					<li class="nav-item"><a class="nav-link active" href="/steuern">Steuerung
-					<span class="sr-only">(current)</span>
+					<li class="nav-item"><a class="nav-link" href="/steuern">Steuerung
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="/konfigurieren">Konfiguration</a>
+					<li class="nav-item"><a class="nav-link active" href="/konfigurieren">Konfiguration</a>
+					<span class="sr-only">(current)</span>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Über</a></li>
 				</ul>
@@ -36,18 +36,18 @@
 		</div>
 
 		<div class="jumbotron">
-			<h1 class="display-3">Steuerung</h1>
+			<h1 class="display-3">Konfiguration</h1>
 			<form action="/steuern" method="POST" modelAttribute="userFormData">
 
 				<div class="form-group row">
-					<label for="example-text-input" class="col-3 col-form-label">Geschwindigkeit[80-250]</label>
+					<label for="example-text-input" class="col-2 col-form-label">Roboternama</label>
 					<div class="col-10">
 						<input class="form-control" type="text" name="geschwindigkeit"
 							id="geschwindigkeit" />
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="example-text-input" class="col-3 col-form-label">Dauer[s]</label>
+					<label for="example-text-input" class="col-2 col-form-label">Ihr Name</label>
 					<div class="col-10">
 						<input class="form-control" type="text" name="dauer" id="dauer" />
 					</div>
