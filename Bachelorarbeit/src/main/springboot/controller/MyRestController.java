@@ -20,24 +20,24 @@ public class MyRestController {
 	@RequestMapping("/")
 	String hello() {
 		try {
-			return new FileLoader("src/main/resources/html/Startseite.html").getTextFromFile();
+			return new FileLoader("src/main/resources/static/html/Startseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "interner Fehler";
 	}
 
-	@GetMapping("/roboter/ranger")
+	@GetMapping("/steuern")
 	String roboter() throws Exception {
 		try {
-			return new FileLoader("src/main/resources/html/Steuerseite.html").getTextFromFile();
+			return new FileLoader("src/main/resources/static/html/Steuerseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "interner Fehler";
 	}
 
-	@RequestMapping(value = "/roboter/ranger", method = RequestMethod.POST)
+	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
 	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
 			throws Exception {
 		System.out.println("POST Request auf /roboter/ranger");
