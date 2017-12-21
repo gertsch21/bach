@@ -22,12 +22,11 @@
 		<div class="header clearfix">
 			<nav>
 				<ul class="nav nav-pills float-right">
-					<li class="nav-item"><a class="nav-link" href="/">Start
-					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">Start </a></li>
 					<li class="nav-item"><a class="nav-link" href="/steuern">Steuerung
 					</a></li>
-					<li class="nav-item"><a class="nav-link active" href="/konfigurieren">Konfiguration</a>
-					<span class="sr-only">(current)</span>
+					<li class="nav-item"><a class="nav-link active"
+						href="/konfigurieren">Konfiguration</a> <span class="sr-only">(current)</span>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="/ueber">Über</a></li>
 				</ul>
@@ -47,13 +46,31 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">Ihr Name</label>
+					<label for="example-text-input" class="col-2 col-form-label">Ihr
+						Name</label>
 					<div class="col-10">
 						<input class="form-control" type="text" name="dauer" id="dauer" />
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary">Primary</button>
-				
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Hat
+						Ultrasonic Sensor</label>
+					<div class="btn-group" data-toggle="buttons">
+						<label class="btn btn-primary active"> <input
+							type="checkbox" checked autocomplete="off"> vorhanden
+						</label> <label class="btn btn-primary"> <input type="checkbox"
+							autocomplete="off"> nicht vorhanden
+						</label> <label class="btn btn-primary"> <input type="checkbox"
+							autocomplete="off"> Unsicher
+						</label>
+					</div>
+				</div>
+
+
+
+
+				<button type="submit" class="btn btn-success">Speichern</button>
+				<button type="reset" class="btn btn-danger">Abbrechen</button>
 			</form>
 
 
