@@ -2,6 +2,7 @@ package main.springboot.controller;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +58,12 @@ public class MyRestController {
 	}
 
 
+	
+	//das model brauch ich nur zum testen fuer freemarker, weiss aber noch nicht genau wie es geht
 	@GetMapping("/konfigurieren")
-	String konfigurieren() throws Exception {
+	String konfigurieren(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
 		try {
+			model.addAttribute("name", name);
 			return new FileLoader("src/main/resources/static/html/Konfigurationsseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
