@@ -30,20 +30,23 @@ public class MyRestController {
 
 	@GetMapping("/steuern")
 	String roboter() throws Exception {
-		System.out.println("GET Request auf /roboter/steuern");
+		System.out.println("GET Request auf /steuern");
 
 		try {
+			System.out.println("vorher");
 			return new FileLoader("src/main/resources/static/html/Steuerseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("sollte nicht");
 		return "interner Fehler";
 	}
 
 	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
 	void roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
 			throws Exception {
-		System.out.println("POST Request auf /roboter/steuern");
+		System.out.println("POST Request auf /steuern");
 
 		int gesch = 0;
 		int dauer = 0;
