@@ -208,6 +208,7 @@ public class RangerManagement implements IMbotEvent {
 		
 		while(aktuellWinkel<ziel) {
 			mc.encoderMotorRight(220);
+			mc.encoderMotorLeft(220);
 			aktuellWinkel = (int) mc.readGyroSensorOnboard(3);
 			if(aktuellWinkel < 0) aktuellWinkel = 180 - (aktuellWinkel*(-1)) + 180;
 			if(aktuellWinkel<(int)ausgangswinkel) aktuellWinkel = aktuellWinkel+360;
@@ -215,6 +216,7 @@ public class RangerManagement implements IMbotEvent {
 
 		}
 		mc.encoderMotorRight(0);
+		mc.encoderMotorLeft(0);
 
 	}
 	
