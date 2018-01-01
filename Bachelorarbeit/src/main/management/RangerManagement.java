@@ -191,11 +191,11 @@ public class RangerManagement implements IMbotEvent {
 	}
 	
 	public static void turnRight() throws IOException, InterruptedException  {
-		System.out.println("vorher: x/y/z  =  " +  mc.readGyro(1)+"/"+mc.readGyro(2)+"/"+mc.readGyro(3));
+		System.out.println("vorher: x/y/z  =  " +  mc.readGyroSensorOnboard(1)+"/"+mc.readGyroSensorOnboard(2)+"/"+mc.readGyroSensorOnboard(3));
 		mc.encoderMotorRight(120);
 		Thread.sleep(2 * 1000);
 		mc.encoderMotorRight(0);
-		System.out.println("nachher: x/y/z  =  " +  mc.readGyro(1)+"/"+mc.readGyro(2)+"/"+mc.readGyro(3));
+		System.out.println("nachher: x/y/z  =  " +  mc.readGyroSensorOnboard(1)+"/"+mc.readGyroSensorOnboard(2)+"/"+mc.readGyroSensorOnboard(3));
 
 	}
 
