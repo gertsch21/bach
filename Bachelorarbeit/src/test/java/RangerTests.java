@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBException;
 import org.junit.Assert;
 import main.management.RangerManagement;
 
-public class HelloWorldTest {
+public class RangerTests {
 
 	@Test
 	public void testXMLOutput()  {
