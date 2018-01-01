@@ -267,7 +267,7 @@ public class MbotClient implements Runnable, AutoCloseable {
         return (byte) r.result;
     }
 
-    public float readGyro(int axis) {
+    public float readGyro(int axis) { //1:x 2:y 3:z
         byte[] payload = new byte[2];
         payload[0] = (byte) (0 & 0xFF);
         payload[1] = (byte) (axis & 0xFF);

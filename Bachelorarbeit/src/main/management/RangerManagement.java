@@ -174,7 +174,7 @@ public class RangerManagement implements IMbotEvent {
 
 	}
 
-	public static void moveForward(int gesch, int sec) throws Exception {
+	public static void moveForward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(gesch);
 		mc.encoderMotorRight(-gesch);
 		Thread.sleep(sec * 1000);
@@ -182,12 +182,21 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
-	public static void moveBackward(int gesch, int sec) throws Exception {
+	public static void moveBackward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(-gesch);
 		mc.encoderMotorRight(gesch);
 		Thread.sleep(sec * 1000);
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
+	}
+	
+	public static void turnRight() throws IOException, InterruptedException  {
+		System.out.println("vorher: x/y/z  =  " +  mc.readGyro(1)+"/"+mc.readGyro(2)+"/"+mc.readGyro(3));
+		mc.encoderMotorRight(120);
+		Thread.sleep(2 * 1000);
+		mc.encoderMotorRight(0);
+		System.out.println("nachher: x/y/z  =  " +  mc.readGyro(1)+"/"+mc.readGyro(2)+"/"+mc.readGyro(3));
+
 	}
 
 	public static void stop() throws Exception {

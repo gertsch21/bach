@@ -36,9 +36,9 @@ public class MyRestController {
 		return "interner Fehler";
 	}
 
-	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
-	public ModelAndView roboterDoSomething(@ModelAttribute("userFormData") UserEingabeRanger formData, BindingResult result) throws Exception{
-		System.out.println("POST Request auf /steuern");
+	@RequestMapping(value = "/gerade", method = RequestMethod.POST)
+	public ModelAndView gerade(@ModelAttribute("userFormData") UserEingabeRanger formData, BindingResult result) throws Exception{
+		System.out.println("POST Request auf /gerade");
 
 		int gesch = 0;
 		int dauer = 0;
@@ -74,6 +74,7 @@ public class MyRestController {
 	@GetMapping("/ueber")
 	String ueber() throws Exception {
 		try {
+			RangerManagement.getInstance().turnRight();
 			return new FileLoader("src/main/resources/static/html/Ueberseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
