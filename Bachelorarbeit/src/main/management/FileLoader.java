@@ -25,6 +25,7 @@ public class FileLoader {
 		if(!Files.exists(path))
 			throw new FileNotFoundException("Das angegebene File mit dem Pfad existiert nicht!");
 		byte[] b = Files.readAllBytes(path);
+		System.out.println("HTML: "+(new String(b)));
 		return new String(b);
 	}
 	
