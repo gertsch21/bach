@@ -54,6 +54,7 @@ public class MyRestController {
 			e.printStackTrace();
 		}
 
+		System.out.println("Bin gefahren");
 		roboter();
 	}
 
