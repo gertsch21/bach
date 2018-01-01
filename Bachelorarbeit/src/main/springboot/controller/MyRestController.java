@@ -30,6 +30,8 @@ public class MyRestController {
 
 	@GetMapping("/steuern")
 	String roboter() throws Exception {
+		System.out.println("GET Request auf /roboter/steuern");
+
 		try {
 			return new FileLoader("src/main/resources/static/html/Steuerseite.html").getTextFromFile();
 		} catch (Exception e) {
@@ -41,7 +43,7 @@ public class MyRestController {
 	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
 	void roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
 			throws Exception {
-		System.out.println("POST Request auf /roboter/ranger");
+		System.out.println("POST Request auf /roboter/steuern");
 
 		int gesch = 0;
 		int dauer = 0;
@@ -53,8 +55,7 @@ public class MyRestController {
 			System.err.println("MyRequestController:roboterDoSomething: Fehler, da keine Zahl uebergeben wurde");
 			e.printStackTrace();
 		}
-
-		System.out.println("Bin gefahren");
+		
 		roboter();
 	}
 
