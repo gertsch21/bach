@@ -2,6 +2,11 @@ package main;
 
 import java.io.Serializable;
 
+/**
+ * Wird zum fahren verwendet, ist eigentlich nur zum testen ob fahrbar
+ * @author Gerhard
+ *
+ */
 public class UserEingabeRanger implements Serializable{
 	private String geschwindigkeit;
 	private String dauer;

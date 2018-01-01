@@ -54,7 +54,7 @@ public class MyRestController {
 			e.printStackTrace();
 		}
 
-		return;// roboter();
+		roboter();
 	}
 
 
