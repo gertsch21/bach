@@ -74,7 +74,6 @@ public class MyRestController {
 	@GetMapping("/ueber")
 	String ueber() throws Exception {
 		try {
-			RangerManagement.getInstance().turnRight();
 			return new FileLoader("src/main/resources/static/html/Ueberseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +81,15 @@ public class MyRestController {
 		return "interner Fehler";
 	}
 	
-
+	@PostMapping("/rechtsDrehen")
+	ModelAndView rechtsDrehen() throws Exception {
+		try {
+			RangerManagement.getInstance().turnRight();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView( "redirect:/steuern"); //nur um auf die get seite weitergeleitet zu werden
+	}
 	
 	
 	public static void main(String[] args) throws Exception {
