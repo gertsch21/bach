@@ -1,5 +1,7 @@
 package main.springboot.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.ui.Model;
@@ -62,6 +64,18 @@ public class MyRestController {
 		return roboter();
 	}
 
+	
+	@RequestMapping(value = "/test", method = RequestMethod.POST)  
+	public ModelAndView getAllArchivalIssues(HttpServletRequest request){
+
+		System.out.println(request.getAttribute("name"));
+
+	    ModelAndView mav = new ModelAndView("steuern");                          
+	    
+	    return mav; 
+
+	}
+	
 
 	
 	//das model brauch ich nur zum testen fuer freemarker, weiss aber noch nicht genau wie es geht
