@@ -194,7 +194,7 @@ public class RangerManagement implements IMbotEvent {
 		
 		for(int i = 0; i<20; i++) {
 			System.out.println("vorher: x/y/z  =  " +  mc.readGyroSensorOnboard(1)+"/"+mc.readGyroSensorOnboard(2)+"/"+mc.readGyroSensorOnboard(3));
-			mc.encoderMotorRight(120);
+			mc.encoderMotorRight(150);
 			Thread.sleep(2 * 1000);
 			mc.encoderMotorRight(0);
 		}
