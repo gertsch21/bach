@@ -2,27 +2,27 @@ package test.java;
 
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
+
 import org.junit.Assert;
-import main.HelloWorld;
+import main.management.RangerManagement;
 
 public class HelloWorldTest {
 
 	@Test
-	public void test1() {
-		HelloWorld hw = new HelloWorld();
-		Assert.assertEquals(hw.return1(), 1);
-	}
-	@Test
-	public void test2() {
-		HelloWorld hw = new HelloWorld();
-		Assert.assertEquals(hw.return2(), 2);
-	}
-	@Test
-	public void test3() {
-		HelloWorld hw = new HelloWorld();
-		Assert.assertEquals(hw.return3(), 3);
+	public void testXMLOutput()  {
+		RangerManagement rm = RangerManagement.getInstance();
+		boolean fehler = false;
+		String roboterdata =null;
+		try {
+			roboterdata = rm.getRoboterDataAsXML();	
+		}catch(JAXBException e) {
+			fehler = true;
+		}
+		
+		if(roboterdata==null || roboterdata.isEmpty())
+			fehler = true;
+		Assert.assertEquals(fehler, false);
 	}
 	
-
-
 }
