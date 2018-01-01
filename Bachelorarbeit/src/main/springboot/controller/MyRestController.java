@@ -1,11 +1,8 @@
 package main.springboot.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import main.UserEingabeRanger;
 import main.management.FileLoader;
 import main.management.RangerManagement;
-import main.model.Roboter;
-import main.xmlmaker.RoboterXMLWriter;
-
 @RestController
 @EnableAutoConfiguration
 public class MyRestController {
@@ -43,12 +37,13 @@ public class MyRestController {
 	}
 
 	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
-	public ModelAndView roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
-			throws Exception {
+	public ModelAndView roboterDoSomething(@ModelAttribute("userFormData") UserEingabeRanger formData, BindingResult result) throws Exception{
 		System.out.println("POST Request auf /steuern");
 
 		int gesch = 0;
 		int dauer = 0;
+		
+		
 		try {
 			gesch = Integer.valueOf(formData.getGeschwindigkeit());
 			dauer = Integer.valueOf(formData.getDauer());
@@ -58,22 +53,7 @@ public class MyRestController {
 			e.printStackTrace();
 		}
 		
-		return new ModelAndView( "redirect:/steuern");
-	}
-
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/test", method = RequestMethod.POST)  
-	public ModelAndView getAllArchivalIssues(HttpServletRequest request){
-
-		System.out.println("name" + request);
-
-	    return new ModelAndView( "redirect:/steuern");
-
-
+		return new ModelAndView( "redirect:/steuern"); //nur um auf die get seite weitergeleitet zu werden
 	}
 	
 
