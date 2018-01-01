@@ -192,7 +192,7 @@ public class RangerManagement implements IMbotEvent {
 
 	
 	public static void rechtsDrehenWinkel(double winkel)throws IOException, InterruptedException  {
-		if(winkel<0) {
+		if(winkel<0||winkel>=360) {
 			System.err.println("negativer winkel");
 			return;
 		}
@@ -209,8 +209,8 @@ public class RangerManagement implements IMbotEvent {
 		while(aktuellWinkel<ziel) {
 			mc.encoderMotorRight(220);
 			aktuellWinkel = (int) mc.readGyroSensorOnboard(3);
-			if(aktuellWinkel <0) aktuellWinkel = 180 - (aktuellWinkel*(-1)) + 180;
-			if(aktuellWinkel<ausgangswinkel) aktuellWinkel = aktuellWinkel+360;
+			if(aktuellWinkel < 0) aktuellWinkel = 180 - (aktuellWinkel*(-1)) + 180;
+			if(aktuellWinkel<(int)ausgangswinkel) aktuellWinkel = aktuellWinkel+360;
 			System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
 
 		}
