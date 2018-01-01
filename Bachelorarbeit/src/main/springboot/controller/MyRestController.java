@@ -44,7 +44,7 @@ public class MyRestController {
 	}
 
 	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
-	void roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
+	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
 			throws Exception {
 		System.out.println("POST Request auf /steuern");
 
@@ -59,7 +59,7 @@ public class MyRestController {
 			e.printStackTrace();
 		}
 		
-		roboter();
+		return roboter();
 	}
 
 
