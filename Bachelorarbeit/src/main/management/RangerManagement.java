@@ -212,12 +212,15 @@ public class RangerManagement implements IMbotEvent {
 			aktuellWinkel = (int) mc.readGyroSensorOnboard(3);
 			if(aktuellWinkel < 0) aktuellWinkel = 180 - (aktuellWinkel*(-1)) + 180;
 			if(aktuellWinkel<(int)ausgangswinkel) aktuellWinkel = aktuellWinkel+360;
-			System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+			//System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
 
 		}
 		mc.encoderMotorRight(0);
 		mc.encoderMotorLeft(0);
 
+		System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+
+		
 	}
 	
 	public static void turnRight() throws IOException, InterruptedException  {
