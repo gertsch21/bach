@@ -35,18 +35,15 @@ public class MyRestController {
 		System.out.println("GET Request auf /steuern");
 
 		try {
-			System.out.println("vorher");
 			return new FileLoader("src/main/resources/static/html/Steuerseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("sollte nicht");
 		return "interner Fehler";
 	}
 
 	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
-	String roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
+	public ModelAndView roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
 			throws Exception {
 		System.out.println("POST Request auf /steuern");
 
@@ -61,18 +58,21 @@ public class MyRestController {
 			e.printStackTrace();
 		}
 		
-		return roboter();
+		return new ModelAndView( "redirect:/steuern");
 	}
 
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/test", method = RequestMethod.POST)  
 	public ModelAndView getAllArchivalIssues(HttpServletRequest request){
 
-		System.out.println(request.getAttribute("name"));
+		System.out.println("name" + request);
 
-	    ModelAndView mav = new ModelAndView("steuern");                          
-	    
-	    return mav; 
+	    return new ModelAndView( "redirect:/steuern");
+
 
 	}
 	
