@@ -10,7 +10,7 @@
 	<script>
 		function domain_in_iframe() {
 			var x = document.domain;
-			document.getElementById("streaming_frame").src = x;
+			document.getElementById("streaming_frame").src = "http://" + x + ":8081";
 		}
 	</script>
 	
