@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content=""/>
-<meta name="author" content="Gerhard"/>
-
-<title>Ranger Steuerseite</title>
-
-<!-- To ensure proper rendering and touch zooming for mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-<!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.css" rel="stylesheet"/>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="Gerhard" />
+	
+	<script>
+		function domain_in_iframe() {
+			var x = document.domain;
+			document.getElementById("streaming_frame").src = x;
+		}
+	</script>
+	
+	<title>Ranger Steuerseite</title>
+	
+	<!-- To ensure proper rendering and touch zooming for mobile -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<!-- Bootstrap core CSS -->
+	<link href="../css/bootstrap.css" rel="stylesheet" />
 
 </head>
-<body>
+<body onload="domain_in_iframe()">
 
 	<div class="container">
 		<div class="header clearfix">
@@ -37,11 +44,12 @@
 		<div class="jumbotron">
 			<h1 class="display-3">Steuerung</h1>
 
-			<iframe src="http://10.0.0.24:8081" width="660"
-				height="500" name="SELFHTML_in_a_box"> </iframe>
+			<iframe src="http://10.0.0.242:8081" width="660" height="500"
+				name="SELFHTML_in_a_box" id="streaming_frame"> </iframe>
 
-			
-			<form action="#" th:action="@{/gerade}" th:object="${usereingabe}" method="post">
+
+			<form action="#" th:action="@{/gerade}" th:object="${usereingabe}"
+				method="post">
 				<div class="form-group row">
 					<label for="example-text-input" class="col-3 col-form-label">Geschwindigkeit[80-250]</label>
 					<div class="col-10">
@@ -59,7 +67,8 @@
 
 			<form action="/rechtsDrehen" method="POST">
 				<div class="form-group row">
-					<label for="example-text-input" class="col-3 col-form-label">Rechts drehen Winkel[�]</label>
+					<label for="example-text-input" class="col-3 col-form-label">Rechts
+						drehen Winkel[�]</label>
 					<div class="col-10">
 						<button type="submit" class="btn btn-primary">RechtsDrehen</button>
 					</div>
@@ -67,21 +76,6 @@
 
 			</form>
 		</div>
-
-
-<p>Click the button to display the domain name of the server that loaded this document.</p>
-
-<button onclick="myFunction()">Try it</button>
-
-<p id="demo"></p>
-
-<script>
-function myFunction() {
-    var x = document.domain;
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
 
 
 		<footer class="footer">
