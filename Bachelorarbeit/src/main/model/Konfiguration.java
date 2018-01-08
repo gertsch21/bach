@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Konfiguration{
+public class Konfiguration implements Serializable{
 	private String name;
 	private String robotername;
 	

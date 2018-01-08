@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -40,20 +40,18 @@
 			<iframe src="http://10.0.0.24:8081" width="660"
 				height="500" name="SELFHTML_in_a_box"> </iframe>
 
-
-
-			<form action="/gerade" method="POST" modelAttribute="userFormData">
+			
+			<form action="#" th:action="@{/gerade}" th:object="${usereingabe}" method="post">
 				<div class="form-group row">
 					<label for="example-text-input" class="col-3 col-form-label">Geschwindigkeit[80-250]</label>
 					<div class="col-10">
-						<input class="form-control" type="text" name="geschwindigkeit"
-							id="geschwindigkeit" />
+						<input type="text" th:field="*{geschwindigkeit}" />
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="example-text-input" class="col-3 col-form-label">Dauer[s]</label>
 					<div class="col-10">
-						<input class="form-control" type="text" name="dauer" id="dauer" />
+						<input type="text" th:field="*{dauer}" />
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary">Los</button>

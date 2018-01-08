@@ -1,4 +1,4 @@
-package main;
+package main.model;
 
 import java.io.Serializable;
 
@@ -9,19 +9,11 @@ import java.io.Serializable;
  * @author Gerhard
  *
  */
-public class UserEingabeRanger implements Serializable{
+public class Usereingaberanger{
 	private String geschwindigkeit;
 	private String dauer;
 	
-	
-	public UserEingabeRanger(String geschwindigkeit, String dauer) {
-		super();
-		this.geschwindigkeit = geschwindigkeit;
-		this.dauer = dauer;
-	}
-	public UserEingabeRanger() {
-		super();
-	}
+
 	public String getGeschwindigkeit() {
 		return geschwindigkeit;
 	}

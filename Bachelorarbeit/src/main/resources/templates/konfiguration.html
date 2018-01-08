@@ -1,15 +1,107 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content=""/>
+<meta name="author" content="Gerhard"/>
+
+<title>Ranger Konfigurationsseite</title>
+
+<!-- To ensure proper rendering and touch zooming for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap.css" rel="stylesheet"/>
+
 </head>
 <body>
-	<h1>Form</h1>
-    <form action="#" th:action="@{/konfigurieren}" th:object="${konfiguration}" method="post">
-    	<p>Name: <input type="text" th:field="*{name}" /></p>
-        <p>Robotername: <input type="text" th:field="*{robotername}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+
+	<div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills float-right">
+					<li class="nav-item"><a class="nav-link" href="/">Start </a></li>
+					<li class="nav-item"><a class="nav-link" href="/steuern">Steuerung
+					</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="/konfigurieren">Konfiguration</a> <span class="sr-only">(current)</span>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="/ueber">Über</a></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Ranger Selbstidentifikation</h3>
+		</div>
+
+
+
+
+		<div class="jumbotron">
+
+			<h1 class="display-3">Konfiguration</h1>
+
+
+			<form action="#" th:action="@{/konfigurieren}" th:object="${konfiguration}" method="post">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-3 col-form-label">Robotername</label>
+					<div class="col-7">
+						<input type="text" th:field="*{robotername}" />
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-3 col-form-label">Ihr
+						Name</label>
+					<div class="col-7">
+						<input type="text" th:field="*{name}" />
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-3 col-form-label">Besitzt
+						Ultrasonic Sensor</label>
+					<div class="col-7">
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input
+								class="form-check-input" type="radio" name="ultrasonic"
+								id="ultrasonicVor" value="option1"/> vorhanden
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input
+								class="form-check-input" type="radio" name="ultrasonic"
+								id="ultrasonicNicht" value="option2"/> nicht vorhanden
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<label class="form-check-label"> <input
+								class="form-check-input" type="radio" name="ultrasonic"
+								id="ultrasonicUnsich" value="option2" checked="true"/> unsicher
+							</label>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<button type="submit" class="btn btn-success">Speichern</button>
+				<button type="reset" class="btn btn-danger">Abbrechen</button>
+			</form>
+
+		</div>
+
+
+
+		<footer class="footer">
+			<p>&copy; Gerhard Schmidt</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
 </body>
 </html>
