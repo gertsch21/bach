@@ -37,13 +37,12 @@
 		<div class="jumbotron">
 			<h1 class="display-3">Steuerung</h1>
 
-			<iframe src="http://gertsch21-new.ddns.net:8081/" width="660"
+			<iframe src="http://10.0.0.24:8081" width="660"
 				height="500" name="SELFHTML_in_a_box"> </iframe>
 
 
 
-			<form action="/steuern" method="POST" modelAttribute="userFormData">
-
+			<form action="/gerade" method="POST" modelAttribute="userFormData">
 				<div class="form-group row">
 					<label for="example-text-input" class="col-3 col-form-label">Geschwindigkeit[80-250]</label>
 					<div class="col-10">
@@ -57,12 +56,18 @@
 						<input class="form-control" type="text" name="dauer" id="dauer" />
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary">Primary</button>
-
+				<button type="submit" class="btn btn-primary">Los</button>
 			</form>
 
+			<form action="/rechtsDrehen" method="POST">
+				<div class="form-group row">
+					<label for="example-text-input" class="col-3 col-form-label">Rechts drehen Winkel[°]</label>
+					<div class="col-10">
+						<button type="submit" class="btn btn-primary">RechtsDrehen</button>
+					</div>
+				</div>
 
-
+			</form>
 		</div>
 
 

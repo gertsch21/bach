@@ -6,6 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
+/**
+ * Diese Klasse ist fuer das auslesen von ueberwiegend Textfiles zustaendig, etwa von HTML Dateien
+ * @author Gerhard
+ *
+ */
 public class FileLoader {
 	
 	private String stringpfad;

@@ -3,7 +3,6 @@ package main.springboot.controller;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import main.UserEingabeRanger;
 import main.management.FileLoader;
 import main.management.RangerManagement;
-import main.model.Roboter;
-import main.xmlmaker.RoboterXMLWriter;
-
 @RestController
 @EnableAutoConfiguration
 public class MyRestController {
@@ -30,6 +26,8 @@ public class MyRestController {
 
 	@GetMapping("/steuern")
 	String roboter() throws Exception {
+		System.out.println("GET Request auf /steuern");
+
 		try {
 			return new FileLoader("src/main/resources/static/html/Steuerseite.html").getTextFromFile();
 		} catch (Exception e) {
@@ -38,13 +36,14 @@ public class MyRestController {
 		return "interner Fehler";
 	}
 
-	@RequestMapping(value = "/steuern", method = RequestMethod.POST)
-	void roboterDoSomething(@ModelAttribute("roboterData") UserEingabeRanger formData, BindingResult result)
-			throws Exception {
-		System.out.println("POST Request auf /roboter/ranger");
+	@RequestMapping(value = "/gerade", method = RequestMethod.POST)
+	public ModelAndView gerade(@ModelAttribute("userFormData") UserEingabeRanger formData, BindingResult result) throws Exception{
+		System.out.println("POST Request auf /gerade");
 
 		int gesch = 0;
 		int dauer = 0;
+		
+		
 		try {
 			gesch = Integer.valueOf(formData.getGeschwindigkeit());
 			dauer = Integer.valueOf(formData.getDauer());
@@ -53,10 +52,10 @@ public class MyRestController {
 			System.err.println("MyRequestController:roboterDoSomething: Fehler, da keine Zahl uebergeben wurde");
 			e.printStackTrace();
 		}
-
-		return;// roboter();
+		
+		return new ModelAndView( "redirect:/steuern"); //nur um auf die get seite weitergeleitet zu werden
 	}
-
+	
 
 	
 	//das model brauch ich nur zum testen fuer freemarker, weiss aber noch nicht genau wie es geht
@@ -88,7 +87,15 @@ public class MyRestController {
 		return "interner Fehler";
 	}
 	
-
+	@PostMapping("/rechtsDrehen")
+	ModelAndView rechtsDrehen() throws Exception {
+		try {
+			RangerManagement.getInstance().turnRight();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView( "redirect:/steuern"); //nur um auf die get seite weitergeleitet zu werden
+	}
 	
 	
 	public static void main(String[] args) throws Exception {

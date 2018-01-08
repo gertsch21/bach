@@ -174,7 +174,7 @@ public class RangerManagement implements IMbotEvent {
 
 	}
 
-	public static void moveForward(int gesch, int sec) throws Exception {
+	public static void moveForward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(gesch);
 		mc.encoderMotorRight(-gesch);
 		Thread.sleep(sec * 1000);
@@ -182,12 +182,48 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
-	public static void moveBackward(int gesch, int sec) throws Exception {
+	public static void moveBackward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(-gesch);
 		mc.encoderMotorRight(gesch);
 		Thread.sleep(sec * 1000);
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
+	}
+
+	
+	public static void rechtsDrehenWinkel(double winkel)throws IOException, InterruptedException  {
+		if(winkel<0||winkel>=360) {
+			System.err.println("negativer winkel");
+			return;
+		}
+		double ausgangswinkel =  mc.readGyroSensorOnboard(3);
+		if(ausgangswinkel <0) ausgangswinkel = 180 - (ausgangswinkel*(-1)) + 180;
+		double ziel = ausgangswinkel + winkel;
+		
+		int aktuellWinkel = (int) ausgangswinkel;
+		System.out.println("Ausgangswinkel: "+ausgangswinkel);
+		
+		System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+
+		
+		while(aktuellWinkel<ziel) {
+			mc.encoderMotorRight(120);
+			mc.encoderMotorLeft(120);
+			aktuellWinkel = (int) mc.readGyroSensorOnboard(3);
+			if(aktuellWinkel < 0) aktuellWinkel = 180 - (aktuellWinkel*(-1)) + 180;
+			if(aktuellWinkel<(int)ausgangswinkel) aktuellWinkel = aktuellWinkel+360;
+			//System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+		}
+		mc.encoderMotorRight(0);
+		mc.encoderMotorLeft(0);
+
+		System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+
+		
+	}
+	
+	public static void turnRight() throws IOException, InterruptedException  {
+		rechtsDrehenWinkel(90);
 	}
 
 	public static void stop() throws Exception {

@@ -14,7 +14,7 @@ import main.mbot.client.Port;
 
 /**
  * Simple test program fir mBot client library;
- * prints available com ports, modify @comPortName accordingly.
+ * prints available com ports, modify @comPortNamr accordingly.
  * Make sure matching mBlock firmware is running on your device (mbot_firmwae.ino, orion_firmware.ino, ...)
  *
  * @author    Martin Kunz <martin.michael.kunz@gmail.com>
