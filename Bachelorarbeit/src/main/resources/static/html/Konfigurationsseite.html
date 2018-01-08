@@ -42,13 +42,12 @@
 			<h1 class="display-3">Konfiguration</h1>
 
 
-			<form action="/steuern" method="POST" modelAttribute="userFormData">
+			<form action="#" th:action="@{/konfigurieren}" th:object="${konfiguration}" method="post">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-3 col-form-label">Robotername</label>
 					<div class="col-7">
-						<input class="form-control" type="text" name="geschwindigkeit"
-							id="geschwindigkeit" />
+						<input class="form-control" type="text"  th:field="*{robotername}"  />
 					</div>
 				</div>
 
@@ -57,7 +56,7 @@
 					<label for="example-text-input" class="col-3 col-form-label">Ihr
 						Name</label>
 					<div class="col-7">
-						<input class="form-control" type="text" name="dauer" id="dauer" />
+						<input class="form-control" type="text" th:field="*{name}" />
 					</div>
 				</div>
 

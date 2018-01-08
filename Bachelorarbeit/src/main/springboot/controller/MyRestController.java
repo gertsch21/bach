@@ -61,13 +61,19 @@ public class MyRestController {
 	
 	//das model brauch ich nur zum testen fuer freemarker, weiss aber noch nicht genau wie es geht
 	@GetMapping("/konfigurieren")
-	String konfigurieren(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
+	String konfigurieren() {
 		try {
-			model.addAttribute("name", name);
 			return new FileLoader("src/main/resources/static/html/Konfigurationsseite.html").getTextFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return "interner Fehler";
+	}
+	
+	@PostMapping("/konfigurieren")
+	String konfigurierenPost() {
+		
+		
 		return "interner Fehler";
 	}
 	
