@@ -88,7 +88,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>main.Applikation</mainClass>
+							<mainClass>main.Application</mainClass>
 							<!-- <mainClass>test.CommPortTests</mainClass> -->
 						</manifest>
 					</archive>
