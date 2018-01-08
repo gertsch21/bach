@@ -66,7 +66,7 @@ public class MyRestController {
 		k.setName("Geil Mit Controller gesettet");
 		k.setRobotername("Geil, auch Mit Controller gesettet");
 		
-		model.addAttribute(k);
+		model.addAttribute("konfiguration",k);
 		try {
 			return new FileLoader("src/main/resources/static/html/Konfigurationsseite.html").getTextFromFile();
 		} catch (Exception e) {
@@ -76,8 +76,9 @@ public class MyRestController {
 	}
 	
 	@PostMapping("/konfigurieren")
-	String konfigurierenPost(@ModelAttribute Konfiguration k) {
-		
+	String konfigurierenPost(@ModelAttribute Konfiguration konfiguration) {
+		System.out.println("POST: Name: "+konfiguration.getName());
+		System.out.println("POST: Robotername: "+konfiguration.getRobotername());
 		
 		return "POST: /konfigurieren";
 	}
