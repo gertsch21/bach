@@ -11,7 +11,6 @@
 		function domain_in_iframe() {
 			var x = document.domain;
 			x = "http://" + x + ":8081";
-			window.alert(x);
 			document.getElementById("streaming_frame").src = x;
 		}
 	</script>
@@ -25,7 +24,7 @@
 	<link href="../css/bootstrap.css" rel="stylesheet" />
 
 </head>
-<body onload="domain_in_iframe()">
+<body>
 
 	<div class="container">
 		<div class="header clearfix">
@@ -79,7 +78,8 @@
 			</form>
 		</div>
 
-
+		<button onclick="domain_in_iframe()" class="btn btn-primary">Stream auf akt Domain</button>
+		
 		<footer class="footer">
 			<p>&copy; Gerhard Schmidt</p>
 		</footer>
