@@ -1,6 +1,8 @@
 package main.model;
 
-public class Konfiguration {
+import java.io.Serializable;
+
+public class Konfiguration implements Serializable{
 	private String name;
 	private String robotername;
 	

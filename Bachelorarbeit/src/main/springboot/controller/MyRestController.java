@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import main.UserEingabeRanger;
 import main.management.FileLoader;
 import main.management.RangerManagement;
+import main.model.Konfiguration;
 @RestController
 @EnableAutoConfiguration
 public class MyRestController {
@@ -60,7 +61,12 @@ public class MyRestController {
 	
 	//das model brauch ich nur zum testen fuer freemarker, weiss aber noch nicht genau wie es geht
 	@GetMapping("/konfigurieren")
-	String konfigurieren() {
+	String konfigurieren(Model model) {
+		Konfiguration k = new Konfiguration();
+		k.setName("Geil Mit Controller gesettet");
+		k.setRobotername("Geil, auch Mit Controller gesettet");
+		
+		model.addAttribute(k);
 		try {
 			return new FileLoader("src/main/resources/static/html/Konfigurationsseite.html").getTextFromFile();
 		} catch (Exception e) {
@@ -70,10 +76,10 @@ public class MyRestController {
 	}
 	
 	@PostMapping("/konfigurieren")
-	String konfigurierenPost() {
+	String konfigurierenPost(@ModelAttribute Konfiguration k) {
 		
 		
-		return "interner Fehler";
+		return "POST: /konfigurieren";
 	}
 	
 	
