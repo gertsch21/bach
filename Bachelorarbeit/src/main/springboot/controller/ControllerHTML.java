@@ -21,8 +21,8 @@ import main.model.Usereingaberanger;
 public class ControllerHTML {
 
 	
-	@RequestMapping("/")
-	String hello() {
+	@RequestMapping({"/","home","start"})
+	String start() {
 		return "start";
 	}
 
