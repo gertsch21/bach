@@ -1,4 +1,4 @@
-package main.springboot.controller;
+package main.controller;
 
 import java.io.IOException;
 

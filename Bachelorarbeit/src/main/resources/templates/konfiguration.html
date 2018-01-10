@@ -62,26 +62,38 @@
 				</div>
 
 
+<ul>
+  <li th:each="ty : ${allTypes}">
+    <input type="radio" th:field="*{type}" th:value="${ty}" />
+    <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
+  </li>
+</ul>
+
+
 				<div class="form-group row">
-					<label for="example-text-input" class="col-3 col-form-label">Besitzt
-						Ultrasonic Sensor</label>
+					<label for="example-text-input" class="col-3 col-form-label">
+						Besitzt Ultrasonic Sensor
+					</label>
 					<div class="col-7">
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> 
 								<input class="form-check-input" type="radio" name="ultrasonic"
-									id="ultrasonicVor" value="option1"/> vorhanden
+									id="ultrasonicVor" value="option1"/> 
+								vorhanden
 							</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> 
 								<input class="form-check-input" type="radio" name="ultrasonic"
-									id="ultrasonicNicht" value="option2"/> nicht vorhanden
+									id="ultrasonicNicht" value="option2"/> 
+								nicht vorhanden
 							</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> 
 								<input class="form-check-input" type="radio" name="ultrasonic"
-									id="ultrasonicUnsich" value="option3" checked="true"/> unsicher
+									id="ultrasonicUnsich" value="option3" checked="true"/> 
+								unsicher
 							</label>
 						</div>
 					</div>
