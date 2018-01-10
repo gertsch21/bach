@@ -8,7 +8,6 @@ import javax.xml.bind.JAXBException;
 import main.mbot.client.IMbotEvent;
 import main.mbot.client.MbotClient;
 import main.model.Roboter;
-import main.xmlmaker.RoboterXMLWriter;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
@@ -124,7 +123,7 @@ public class RangerManagement implements IMbotEvent {
 
 	public String getCurrentRoboterDataAsXML() throws JAXBException {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterDataAsXML");
-		return rw.objectToXMLString(getCurrentRoboterData());
+		return rw.roboterToXMLString(getCurrentRoboterData());
 	}
 
 	public Roboter getRoboterData() {
@@ -145,7 +144,7 @@ public class RangerManagement implements IMbotEvent {
 
 	public String getRoboterDataAsXML() throws JAXBException {
 		System.out.println("Starte:RangerManagement:getRoboterDataAsXML");
-		return rw.objectToXMLString(getRoboterData());
+		return rw.roboterToXMLString(getRoboterData());
 	}
 
 	private static boolean istFahrbar() {

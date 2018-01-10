@@ -8,20 +8,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import main.management.RangerManagement;
 import main.model.Konfiguration;
 import main.model.Usereingaberanger;
 
-@Controller
+@org.springframework.stereotype.Controller
 @EnableAutoConfiguration
-public class SecondController {
+public class ControllerHTML {
 
 	@RequestMapping("/")
 	String hello() {
@@ -114,6 +114,16 @@ public class SecondController {
 		}
 
 		return "start";
+	}
+
+	@PostMapping("/rechtsDrehen")
+	ModelAndView rechtsDrehen() throws Exception {
+		try {
+			RangerManagement.getInstance().turnRight();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView( "redirect:/steuern"); //nur um auf die get seite weitergeleitet zu werden
 	}
 
 }

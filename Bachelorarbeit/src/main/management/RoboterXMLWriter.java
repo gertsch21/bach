@@ -1,4 +1,4 @@
-package main.xmlmaker;
+package main.management;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ public class RoboterXMLWriter {
 	
 
 	public RoboterXMLWriter() throws JAXBException {
-		this("Roboter.xml");
+		this("src/main/resources/templates/rangerGerhard.xml");
 	}
 	public RoboterXMLWriter(String filename) throws JAXBException {
 		this.context = JAXBContext.newInstance(Roboter.class);
@@ -37,23 +37,29 @@ public class RoboterXMLWriter {
 	}
 	
 
-	public String objectToXMLString(Roboter x) throws JAXBException{
+	public String roboterToXMLString(Roboter robot) throws JAXBException{
 		StringWriter sw = new StringWriter();
-		marshaller.marshal(x, sw);
+		marshaller.marshal(robot, sw);
 		return sw.toString();
 	}
 	
+	public String getRoboterXMLString() throws FileNotFoundException, JAXBException {
+		Roboter r = this.deserialize();
+		return roboterToXMLString(r);
+	}
 	
-	public void serialize(Roboter x) throws JAXBException{
-		marshaller.marshal(x, new File("src/main/resources/xml/"+this.filename));
+	public void serialize(Roboter robot) throws JAXBException{
+		marshaller.marshal(robot, new File(this.filename));
 	}
 	
 	public Roboter deserialize() throws FileNotFoundException, JAXBException{
-		Path p = Paths.get("src/main/resources/xml/"+this.filename);
+		Path p = Paths.get(this.filename);
+		
 		boolean exists = Files.exists(p);
 		if(!exists) throw new FileNotFoundException();
 		
-		Object unmarshalled = this.unmarshaller.unmarshal(new File("files\\"+this.filename));
+		Object unmarshalled = this.unmarshaller.unmarshal(new File(p.toString()));
+		
 		if(unmarshalled instanceof Roboter)
 			return (Roboter) unmarshalled;
 		else 
@@ -65,11 +71,7 @@ public class RoboterXMLWriter {
 		try {
 			RoboterXMLWriter writer = new RoboterXMLWriter();
 			
-			Roboter toFile = new Roboter();
-			writer.serialize(toFile);
-			
-			Roboter fromFile = writer.deserialize();
-			System.out.println(fromFile);
+			System.out.println(writer.getRoboterXMLString());
 		} catch (JAXBException e) {
 			System.err.println("Achtung: Fehler von JaxB!!");
 			e.printStackTrace();
