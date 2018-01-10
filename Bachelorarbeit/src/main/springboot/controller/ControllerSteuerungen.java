@@ -15,6 +15,7 @@ import main.model.Usereingaberanger;
 
 
 @RestController
+@EnableAutoConfiguration
 public class ControllerSteuerungen {
 
 		
