@@ -20,23 +20,26 @@ import main.model.Usereingaberanger;
 @EnableAutoConfiguration
 public class ControllerHTML {
 
+	
 	@RequestMapping("/")
 	String hello() {
 		return "start";
 	}
 
+	
 	@GetMapping("/steuern")
 	String steuernForm(Model model) throws Exception {
 		model.addAttribute("usereingabe", new Usereingaberanger());
 		return "steuer";
 	}
 
+	
 	@GetMapping("/konfigurieren")
 	public String konfigurationForm(Model model) {
 		Konfiguration konfiguration = null;
 		ObjectInputStream in = null;
 		try {
-			in = new ObjectInputStream(new FileInputStream("konfiguration.conf"));
+			in = new ObjectInputStream(new FileInputStream("selbstkonfiguration.conf"));
 			konfiguration = (Konfiguration) in.readObject();
 		} catch (FileNotFoundException ex) {
 			System.out.println("Speichersdatei (noch) nicht vorhanden!");
@@ -56,6 +59,13 @@ public class ControllerHTML {
 		return "konfiguration";
 	}
 
+	
+	/**
+	 * Diese Methode mappt die einzelnen Formulareintraege vom HTML file einem Konfigurationsobjekt und speichert
+	 * dieses anschliessend in einer datei 
+	 * @param konfiguration das vom html-Formular bekommene und auf die Klasse Konfiguration gemappte Konfigurationsobjekt
+	 * @return die startseite
+	 */
 	@PostMapping("/konfigurieren")
 	public String konfigurationSubmit(@ModelAttribute Konfiguration konfiguration) {
 
@@ -64,8 +74,8 @@ public class ControllerHTML {
 
 		ObjectOutputStream aus = null;
 		try {
-			aus = new ObjectOutputStream(new FileOutputStream("konfiguration.conf"));
-			aus.writeObject(konfiguration);
+			aus = new ObjectOutputStream(new FileOutputStream("selbstkonfiguration.conf"));
+			aus.writeObject(konfiguration); //das automatisch von html gemappte
 		} catch (IOException ex) {
 			System.out.println(ex);
 		} finally {
@@ -77,16 +87,12 @@ public class ControllerHTML {
 			} catch (IOException e) {
 			}
 		}
-
-		return "result";
+		return "start";
 	}
 
+	
 	@GetMapping("/ueber")
 	String ueber() throws Exception {
 		return "ueber";
 	}
-
-
-
-
 }
