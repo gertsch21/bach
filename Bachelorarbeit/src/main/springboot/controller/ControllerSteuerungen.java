@@ -55,12 +55,7 @@ public class ControllerSteuerungen {
 			return new ModelAndView( "redirect:/steuern"); //nur um auf die get seite weitergeleitet zu werden
 		}
 
-		
-		@RequestMapping("/xml")
-	    public Roboter greeting() {
-			System.out.println("/xml");
-	        return RangerManagement.getInstance().getCurrentRoboterData();
-	    }
+
 		
 
 	}

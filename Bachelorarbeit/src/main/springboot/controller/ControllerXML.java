@@ -13,7 +13,7 @@ public class ControllerXML {
 
 
 	@RequestMapping("/xml")
-    public Roboter greeting() {
+    public Roboter xml() {
 		System.out.println("/xml");
         return RangerManagement.getInstance().getCurrentRoboterData();
     }
