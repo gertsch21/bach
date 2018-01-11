@@ -6,12 +6,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBException;
 
 import main.mbot.client.IMbotEvent;
 import main.mbot.client.MbotClient;
 import main.model.Komponentenauflistung;
+import main.model.Konfiguration;
 import main.model.Roboter;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
@@ -127,16 +131,22 @@ public class RangerManagement implements IMbotEvent {
 	}
 	
 	
-	public Roboter getCurrentSelbstkonfiguration() {
+	public Konfiguration getCurrentSelbstkonfiguration() {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterData");
 		try {
 			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
-			saveCurrentRoboterData();
-			return new RoboterXMLWriter("selbstkonfiguration.conf").deserialize();
+			
+			return new KonfigurationXMLWriter().deserialize();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -283,6 +293,19 @@ public class RangerManagement implements IMbotEvent {
 			} catch (IOException e) {
 			}
 		}
+	}
+	
+	public Konfiguration getKonfiguration() {
+		Konfiguration konfiguration = null;
+		ObjectInputStream in = null;
+		try {
+			in = new ObjectInputStream(new FileInputStream("selbstkonfiguration.conf"));
+			konfiguration = (Konfiguration) in.readObject();
+		}catch(Exception e){
+			
+		}
+		 
+		return konfiguration;
 	}
 	
 }

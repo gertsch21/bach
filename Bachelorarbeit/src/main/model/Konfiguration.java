@@ -32,5 +32,12 @@ public class Konfiguration implements Serializable{
 	public void setListe(List<Komponente> liste) {
 		this.komponenten = liste;
 	}
+	@Override
+	public String toString() {
+		String returnString = "Konfiguration:\n name=" + name + "\n robotername=" + robotername+"\n ";
+		for(Komponente k : this.getListe())
+			returnString = returnString+k+"\n ";
+		return returnString;
+	}
 	
 }

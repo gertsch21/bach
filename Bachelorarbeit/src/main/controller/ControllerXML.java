@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 
 import main.management.RangerManagement;
+import main.model.Konfiguration;
 import main.model.Roboter;
 
 @RestController
@@ -19,7 +20,7 @@ public class ControllerXML {
     }
 	
 	@RequestMapping("/xmlSelbstkonfiguration")
-    public Roboter xmlSelbstkonfiguration() {
+    public Konfiguration xmlSelbstkonfiguration() {
 		System.out.println("/xmlSelbstkonfiguration");
         return RangerManagement.getInstance().getCurrentSelbstkonfiguration();
     }

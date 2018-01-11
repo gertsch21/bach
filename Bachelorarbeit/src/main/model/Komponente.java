@@ -3,6 +3,7 @@ package main.model;
 import java.io.Serializable;
 
 public class Komponente implements Serializable{
+
 	private String name;
 	private Vorhandensein vorhandensein; //0 fuer unsicher, 1 fuer vorhanden, 2 fuer nichtVorhanden
 	
@@ -27,5 +28,10 @@ public class Komponente implements Serializable{
 	}
 	public void setVorhanden(Vorhandensein vorhandensein) {
 		this.vorhandensein = vorhandensein;
+	}
+	
+	@Override
+	public String toString() {
+		return "Komponente: name=" + name + ", vorhandensein=" + vorhandensein;
 	}
 }

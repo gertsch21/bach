@@ -71,13 +71,6 @@ public class ControllerHTML {
 		Komponentenauflistung kompAuflistung = RangerManagement.getInstance().getKomponentenauflistung();
 		
 		
-		List<Komponente> liste = new ArrayList<Komponente>();
-		
-		liste.add(new Komponente("Ultrasonic", Vorhandensein.forName("VORHANDEN")));
-		liste.add(new Komponente("LineFollower", Vorhandensein.forName("unsicher")));
-		liste.add(new Komponente("Temp", Vorhandensein.forName("nicht_VORHANDEN")));
-		
-		konfiguration.setListe(liste);
 		
 		model.addAttribute("konfiguration", konfiguration);
 		model.addAttribute("kompauflistung",kompAuflistung);
@@ -98,10 +91,22 @@ public class ControllerHTML {
 		System.out.println("POST: Konfiguration: Name: " + konfiguration.getName());
 		System.out.println("POST: Konfiguration: RobisName: " + konfiguration.getRobotername());
 
-		System.out.println(request.getAttribute("priorities[Ultrasonic]a"));
-		for (String s : priorities.keySet()) {
-	        System.out.println(s);
-	    }
+		
+		List<Komponente> aktKomponentenliste = new ArrayList<>();
+		
+		Komponentenauflistung kompAuflistung = RangerManagement.getInstance().getKomponentenauflistung();
+		for(String komponente : kompAuflistung.getAlleKomponenten()) {
+			if(request.getParameter(komponente)==null || request.getParameter(komponente).equals("unsi")) 
+				aktKomponentenliste.add(new Komponente(komponente, Vorhandensein.UNSICHER));
+			else if(request.getParameter(komponente).equals("nich"))
+				aktKomponentenliste.add(new Komponente(komponente, Vorhandensein.NICHT_VORHANDEN));
+			else if(request.getParameter(komponente).equals("vorh"))
+				aktKomponentenliste.add(new Komponente(komponente, Vorhandensein.VORHANDEN));
+		}
+		
+		konfiguration.setListe(aktKomponentenliste);
+		
+		System.out.println(konfiguration);
 		
 		
 		ObjectOutputStream aus = null;
@@ -119,15 +124,9 @@ public class ControllerHTML {
 			} catch (IOException e) {
 			}
 		}
+	
 		
-		String ultrasonic = request.getParameter("ultrasonic");
-		if (ultrasonic.equals("vorh")) {
-			System.out.println("Ultrasonic vorhanden");
-		}else if(ultrasonic.equals("nich")) {
-			System.out.println("Ultrasonic nicht vorhanden");
-		}else if(ultrasonic.equals("unsi")) {
-			System.out.println("Ultrasonic unsicher");
-		}
+		System.out.println(RangerManagement.getInstance().getKonfiguration());
 		
 		return "start";
 	}
