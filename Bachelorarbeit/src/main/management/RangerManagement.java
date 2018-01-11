@@ -37,7 +37,7 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Rangermanagement:Defaultkonstruktor");
 		this.comPort = 6;
 		System.out.println("COM Port benutzt: " + this.comPort);
-/*
+
 		try {
 			// mc = new MbotClient(CommPortIdentifier.getPortIdentifier("COM6"));
 
@@ -67,7 +67,7 @@ public class RangerManagement implements IMbotEvent {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-*/
+
 		System.out.println("Ranger initialisiert");
 	}
 
