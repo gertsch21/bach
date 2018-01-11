@@ -13,11 +13,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import main.management.RangerManagement;
 import main.model.Komponente;
@@ -26,7 +28,7 @@ import main.model.Konfiguration;
 import main.model.Usereingaberanger;
 import main.model.Vorhandensein;
 
-@org.springframework.stereotype.Controller
+@Controller
 @EnableAutoConfiguration
 public class ControllerHTML {
 
@@ -134,10 +136,18 @@ public class ControllerHTML {
 	
 
 	@GetMapping("/alleMoeglichenKomponenten")
-	public String alleMoeglichenKomponentenForm(Model model) {
+	public String alleMoeglichenKomponentenForm(Model model,HttpServletRequest request) {
 		Komponentenauflistung kompAuflistung=RangerManagement.getInstance().getKomponentenauflistung();
 		if(kompAuflistung == null) kompAuflistung = new Komponentenauflistung();
 		List<String> alle_komponenten = kompAuflistung.getAlleKomponenten();
+		
+		String zuLoeschen = (String) request.getParameter("loeschen");
+		
+		if(! (zuLoeschen==null || zuLoeschen.length()==0) ) {
+			alle_komponenten.remove(zuLoeschen);
+			kompAuflistung.setAlleKomponenten(alle_komponenten);
+			RangerManagement.getInstance().saveKomponentenauflistung(kompAuflistung);
+		}
 		
 		model.addAttribute("alle_komponenten", alle_komponenten);
 		return "alleMoeglichenKomponenten";
@@ -145,23 +155,28 @@ public class ControllerHTML {
 
 	
 	@PostMapping("/alleMoeglichenKomponenten")
-	public String alleMoeglichenKomponentenSubmit(HttpServletRequest request) {
-
+	public ModelAndView alleMoeglichenKomponentenSubmit(HttpServletRequest request) {
+		request.setAttribute("fehler", "");
 		String neueKomponente = request.getParameter("neueKomponente");
 		
-		if(neueKomponente==null || neueKomponente.length()==0) return "start";
+		if(neueKomponente==null || neueKomponente.length()==0) return new ModelAndView( "redirect:/alleMoeglichenKomponenten");
 		
 		Komponentenauflistung kompAuflistung = RangerManagement.getInstance().getKomponentenauflistung();
-		
-		System.out.println("POST: alleMoeglichenKomponentenSubmit: Name: " + neueKomponente);
+		System.out.println("POST: alleMoeglichenKomponentenSubmit: Neue Komponente registriert: " + neueKomponente);
 		
 		List<String> neueListe = kompAuflistung.getAlleKomponenten();
-		neueListe.add(neueKomponente);
+		
+		if(neueListe.contains(neueKomponente)) {
+			return new ModelAndView( "redirect:/alleMoeglichenKomponenten");
+		}
+		
+		neueListe.add(neueKomponente.replace(" ", ""));
+		java.util.Collections.sort(neueListe);
 		kompAuflistung.setAlleKomponenten(neueListe);
 		
 		RangerManagement.getInstance().saveKomponentenauflistung(kompAuflistung);
 		
-		return "start";
+		return new ModelAndView("redirect:/alleMoeglichenKomponenten");
 	}
 	
 	

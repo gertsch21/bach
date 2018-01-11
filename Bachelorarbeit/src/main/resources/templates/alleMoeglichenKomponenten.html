@@ -7,7 +7,7 @@
 <meta name="description" content="" />
 <meta name="author" content="Gerhard" />
 
-<title>Ranger Alle Komponenten</title>
+<title>Ranger Komponentenregistrierung</title>
 
 <!-- To ensure proper rendering and touch zooming for mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,7 +28,7 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/konfigurieren">Konfiguration</a> <span class="sr-only">(current)</span>
 					</li>
-					<li class="nav-item"><a class="nav-link active" href="/alleMoeglichenKomponenten">Komponentenregistrierung</a></li>
+					<li class="nav-item"><a class="nav-link active" href="/alleMoeglichenKomponenten">Komponenten</a></li>
 					<li class="nav-item"><a class="nav-link" href="/ueber">Über</a></li>
 					<li class="nav-item"><a class="nav-link" href="/xml">XML</a></li>
 					<li class="nav-item"><a class="nav-link" href="/xmlSelbstkonfiguration">XML_Selbst</a></li>
@@ -44,6 +44,7 @@
 
 			<h1 class="display-3">Komponentenauflistung</h1>
 
+			<p name="fehler"></p>
 
 			<!-- auf selbe url nur als post request;  -->
 			<form action="alleMoeglichenKomponenten" method="post">
@@ -51,18 +52,32 @@
 				<div class="form-group row">
 					<label for="example-text-input" class="	col-2 col-form-label">Komponentenname:</label>
 					<div class="col-3">
-						<input type="text" name="neueKomponente" />
+						<input type="text" name="neueKomponente" autofocus="true"/>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-success">Speichern</button>
+				<button type="submit" class="btn btn-success">Registrieren</button>
 			</form>
 
+
+
 			<br />
+
+
+
 			<h3>Bereits Registrierte</h3>
-			<ul>
-				<li th:each="item : ${alle_komponenten}"><label
-					th:text="${item}">example</label></li>
-			</ul>
+			
+				<ul>
+					<li th:each="item : ${alle_komponenten}">
+						<form action="alleMoeglichenKomponenten" method="get">
+							<label class="col-2 col-form-label" th:text="${item}">example</label> 
+							<input type="hidden" name="loeschen" th:value="${item}" />
+							<button type="submit" class="btn btn-warning">Löschen</button>
+						</form>
+					</li>
+				</ul>
+			
+			
+			
 		</div>
 
 

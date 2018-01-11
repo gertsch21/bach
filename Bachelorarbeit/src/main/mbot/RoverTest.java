@@ -1,4 +1,4 @@
-package main.rover;
+package main.mbot;
 
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
