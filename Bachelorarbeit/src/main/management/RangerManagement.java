@@ -6,9 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBException;
 
@@ -129,28 +126,6 @@ public class RangerManagement implements IMbotEvent {
 		return null;
 	}
 	
-	
-	public Konfiguration getCurrentSelbstkonfiguration() {
-		System.out.println("Starte:RangerManagement:getCurrentRoboterData");
-		try {
-			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
-			
-			return new KonfigurationXMLWriter().deserialize();
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	public String getCurrentRoboterDataAsXML() throws JAXBException {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterDataAsXML");
@@ -231,9 +206,9 @@ public class RangerManagement implements IMbotEvent {
 		double ziel = ausgangswinkel + winkel;
 		
 		int aktuellWinkel = (int) ausgangswinkel;
-		System.out.println("Ausgangswinkel: "+ausgangswinkel);
+		System.out.println("Rangermanagement:rechtsDrehenWinkel: Ausgangswinkel: "+ausgangswinkel);
 		
-		System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+		System.out.println("Rangermanagement:rechtsDrehenWinkel: Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
 
 		
 		while(aktuellWinkel<ziel) {
@@ -247,7 +222,7 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 		mc.encoderMotorLeft(0);
 
-		System.out.println("Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
+		System.out.println("Rangermanagement:rechtsDrehenWinkel: Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
 
 		
 	}
@@ -262,7 +237,6 @@ public class RangerManagement implements IMbotEvent {
 	}
 
 
-	
 	public Konfiguration getKonfiguration() {
 		Konfiguration konfiguration = null;
 		ObjectInputStream in = null;
@@ -275,6 +249,7 @@ public class RangerManagement implements IMbotEvent {
 		if(konfiguration == null) konfiguration = new Konfiguration();
 		return konfiguration;
 	}
+
 	
 	public void saveKonfiguration(Konfiguration konfiguration) {
 		ObjectOutputStream aus = null;
@@ -282,7 +257,7 @@ public class RangerManagement implements IMbotEvent {
 			aus = new ObjectOutputStream(new FileOutputStream("selbstkonfiguration.conf"));
 			aus.writeObject(konfiguration); //das automatisch von html gemappte
 		} catch (IOException ex) {
-			System.out.println(ex);
+			System.out.println("Rangermanagement:saveKonfiguration: " + ex);
 		} finally {
 			try {
 				if (aus != null) {

@@ -22,7 +22,7 @@ public class ControllerXML {
 	@RequestMapping("/xmlSelbstkonfiguration")
     public Konfiguration xmlSelbstkonfiguration() {
 		System.out.println("/xmlSelbstkonfiguration");
-        return RangerManagement.getInstance().getCurrentSelbstkonfiguration();
+        return RangerManagement.getInstance().getKonfiguration();
     }
 
 }

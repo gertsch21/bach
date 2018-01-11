@@ -72,12 +72,8 @@ public class ControllerHTML {
 		}
 		
 		konfiguration.setKomponenten(konfigurationslisteNeu);
-		
-		System.out.println("vor speichern: " + konfiguration);
 
 		RangerManagement.getInstance().saveKonfiguration(konfiguration);
-		
-		System.out.println("Nach Konfigurationsaenderung: " + RangerManagement.getInstance().getKonfiguration());
 		
 		return "start";
 	}

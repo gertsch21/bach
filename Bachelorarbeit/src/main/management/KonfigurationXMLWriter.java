@@ -75,32 +75,6 @@ public class KonfigurationXMLWriter {
 	}
 	
 	
-	public static void main(String[] args) throws ClassNotFoundException, IOException {
-		try {
-			KonfigurationXMLWriter writer = new KonfigurationXMLWriter();
-			
-			Konfiguration neu = new Konfiguration();
-			neu.setName("Neu");
-			neu.setRobotername("NeuRobi");
-			List<Komponente> liste = new ArrayList<>();
-			liste.add(new Komponente("Sensor1", Vorhandensein.forName("VORHANDEN")));
-			liste.add(new Komponente("Sensor2", Vorhandensein.forName("unsicher")));
-			liste.add(new Komponente("Sensor3", Vorhandensein.forName("nicht_VORHANDEN")));
-			neu.setKomponenten(liste);
-			writer.serialize(neu);
-			
-			
-			Konfiguration k = writer.deserialize();
-			
-			System.out.println(writer.getKonfigurationToXMLString(writer.deserialize()));
-		} catch (JAXBException e) {
-			System.err.println("Achtung: Fehler von JaxB!!");
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
 
 
 }

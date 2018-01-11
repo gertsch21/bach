@@ -2,6 +2,8 @@ package main.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class Komponente implements Serializable{
 
 	private String name;
@@ -17,12 +19,15 @@ public class Komponente implements Serializable{
 		this.vorhandensein = vorhandensein;
 	}
 	
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@XmlElement(name="ist_vorhanden")
 	public Vorhandensein getVorhandensein() {
 		return vorhandensein;
 	}
