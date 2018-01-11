@@ -32,9 +32,14 @@ public class RangerManagement implements IMbotEvent {
 	private static MbotClient mc;
 	private RoboterXMLWriter rw;
 	private static RangerManagement instance; // singleton
+	
+	public  MbotClient getMc() {
+		return mc;
+	}
 
 	private RangerManagement() {
 		System.out.println("Rangermanagement:Defaultkonstruktor");
+		
 		this.comPort = 6;
 		System.out.println("COM Port benutzt: " + this.comPort);
 
@@ -79,12 +84,7 @@ public class RangerManagement implements IMbotEvent {
 
 
 	
-	private void gyroDemo(MbotClient mc) {
-		float x = mc.readGyro(1);
-		float y = mc.readGyro(2);
-		float z = mc.readGyro(3);
-		System.out.println(String.format("%.2f %.2f %.2f", x, y, z));
-	}
+	
 
 	/**
 	 * Diese Methode soll die aktuellen Daten vom Roboter in das XML File lokal
@@ -94,13 +94,16 @@ public class RangerManagement implements IMbotEvent {
 	 */
 	public void saveCurrentRoboterData() throws JAXBException {
 		System.out.println("Starte:RangerManagement:saveCurrentRoboterData");
+		
+		RangerGetComponentsWithCode getcomponents = RangerGetComponentsWithCode.getInstance();
+		
 		Roboter myRanger = new Roboter();
 		myRanger.setId(1);
 		myRanger.setName("myRanger");
 		myRanger.setfirma("Makeblock");
-		myRanger.setFahrbar(istFahrbar());
-		myRanger.setAbstandssensor(hatAbstandssensor());
-		myRanger.setLinefollower(hatLineFollower());
+		myRanger.setFahrbar(getcomponents.istFahrbar());
+		myRanger.setAbstandssensor(getcomponents.hatAbstandssensor());
+		myRanger.setLinefollower(getcomponents.hatLineFollower());
 		rw.serialize(myRanger);
 	}
 
@@ -153,26 +156,19 @@ public class RangerManagement implements IMbotEvent {
 		return rw.roboterToXMLString(getRoboterData());
 	}
 
-	private boolean istFahrbar() {
-		return true;
+	
+	
+	
+	
+	
+	private void gyroDemo(MbotClient mc) {
+		float x = mc.readGyro(1);
+		float y = mc.readGyro(2);
+		float z = mc.readGyro(3);
+		System.out.println(String.format("%.2f %.2f %.2f", x, y, z));
 	}
-
-	private boolean hatAbstandssensor() {
-		return false;
-	}
-
-	private boolean hatLineFollower() {
-		return false;
-	}
-
-	private String getFirma() {
-		return "Makeblock";
-	}
-
-	private String getName() {
-		return "Makeblock Ranger";
-	}
-
+	
+	
 	@Override
 	public void onButton(boolean pressed) {
 		// TODO Auto-generated method stub
@@ -212,8 +208,8 @@ public class RangerManagement implements IMbotEvent {
 
 		
 		while(aktuellWinkel<ziel) {
-			mc.encoderMotorRight(120);
-			mc.encoderMotorLeft(120);
+			mc.encoderMotorRight(140);
+			mc.encoderMotorLeft(140);
 			aktuellWinkel = (int) mc.readGyroSensorOnboard(3);
 			if(aktuellWinkel < 0) aktuellWinkel = 180 - (aktuellWinkel*(-1)) + 180;
 			if(aktuellWinkel<(int)ausgangswinkel) aktuellWinkel = aktuellWinkel+360;
@@ -268,4 +264,5 @@ public class RangerManagement implements IMbotEvent {
 			}
 		}
 	}
+	
 }
