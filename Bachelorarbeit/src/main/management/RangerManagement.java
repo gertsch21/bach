@@ -1,12 +1,17 @@
 package main.management;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.xml.bind.JAXBException;
 
 import main.mbot.client.IMbotEvent;
 import main.mbot.client.MbotClient;
+import main.model.Komponentenauflistung;
 import main.model.Roboter;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
@@ -120,6 +125,23 @@ public class RangerManagement implements IMbotEvent {
 		}
 		return null;
 	}
+	
+	
+	public Roboter getCurrentSelbstkonfiguration() {
+		System.out.println("Starte:RangerManagement:getCurrentRoboterData");
+		try {
+			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
+			saveCurrentRoboterData();
+			return new RoboterXMLWriter("selbstkonfiguration.conf").deserialize();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public String getCurrentRoboterDataAsXML() throws JAXBException {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterDataAsXML");
@@ -147,23 +169,23 @@ public class RangerManagement implements IMbotEvent {
 		return rw.roboterToXMLString(getRoboterData());
 	}
 
-	private static boolean istFahrbar() {
+	private boolean istFahrbar() {
 		return true;
 	}
 
-	private static boolean hatAbstandssensor() {
+	private boolean hatAbstandssensor() {
 		return false;
 	}
 
-	private static boolean hatLineFollower() {
+	private boolean hatLineFollower() {
 		return false;
 	}
 
-	private static String getFirma() {
+	private String getFirma() {
 		return "Makeblock";
 	}
 
-	private static String getName() {
+	private String getName() {
 		return "Makeblock Ranger";
 	}
 
@@ -173,7 +195,7 @@ public class RangerManagement implements IMbotEvent {
 
 	}
 
-	public static void moveForward(int gesch, int sec) throws IOException, InterruptedException  {
+	public void moveForward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(gesch);
 		mc.encoderMotorRight(-gesch);
 		Thread.sleep(sec * 1000);
@@ -181,7 +203,7 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
-	public static void moveBackward(int gesch, int sec) throws IOException, InterruptedException  {
+	public void moveBackward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(-gesch);
 		mc.encoderMotorRight(gesch);
 		Thread.sleep(sec * 1000);
@@ -190,7 +212,7 @@ public class RangerManagement implements IMbotEvent {
 	}
 
 	
-	public static void rechtsDrehenWinkel(double winkel)throws IOException, InterruptedException  {
+	public void rechtsDrehenWinkel(double winkel)throws IOException, InterruptedException  {
 		if(winkel<0||winkel>=360) {
 			System.err.println("negativer winkel");
 			return;
@@ -221,13 +243,46 @@ public class RangerManagement implements IMbotEvent {
 		
 	}
 	
-	public static void turnRight() throws IOException, InterruptedException  {
+	public void turnRight() throws IOException, InterruptedException  {
 		rechtsDrehenWinkel(90);
 	}
 
-	public static void stop() throws Exception {
+	public void stop() throws Exception {
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
 	}
 
+	public Komponentenauflistung getKomponentenauflistung() {
+		Komponentenauflistung kompAuflistung=null;
+		ObjectInputStream in = null;
+		try {
+			in = new ObjectInputStream(new FileInputStream("alleKomponenten.conf"));
+			kompAuflistung = (Komponentenauflistung) in.readObject();
+		}catch(Exception e){
+			
+		}
+		if(kompAuflistung == null) kompAuflistung = new Komponentenauflistung();
+		
+		return kompAuflistung;
+	}
+	
+	
+	public void saveKomponentenauflistung(Komponentenauflistung kompAuflistung) {
+		ObjectOutputStream aus = null;
+		try {
+			aus = new ObjectOutputStream(new FileOutputStream("alleKomponenten.conf"));
+			aus.writeObject(kompAuflistung); //das automatisch von html gemappte
+		} catch (IOException ex) {
+			System.out.println(ex);
+		} finally {
+			try {
+				if (aus != null) {
+					aus.flush();
+					aus.close();
+				}
+			} catch (IOException e) {
+			}
+		}
+	}
+	
 }

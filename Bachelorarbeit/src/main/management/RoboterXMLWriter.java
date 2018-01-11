@@ -25,6 +25,7 @@ public class RoboterXMLWriter {
 	public RoboterXMLWriter() throws JAXBException {
 		this("src/main/resources/templates/rangerGerhard.xml");
 	}
+	
 	public RoboterXMLWriter(String filename) throws JAXBException {
 		this.context = JAXBContext.newInstance(Roboter.class);
 		

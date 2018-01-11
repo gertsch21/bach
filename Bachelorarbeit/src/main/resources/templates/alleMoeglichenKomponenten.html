@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="Gerhard" />
+
+<title>Ranger Alle Komponenten</title>
+
+<!-- To ensure proper rendering and touch zooming for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills float-right">
+					<li class="nav-item"><a class="nav-link" href="/">Start </a></li>
+					<li class="nav-item"><a class="nav-link" href="/steuern">Steuerung
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/konfigurieren">Konfiguration</a> <span class="sr-only">(current)</span>
+					</li>
+					<li class="nav-item"><a class="nav-link active" href="/alleMoeglichenKomponenten">Komponentenregistrierung</a></li>
+					<li class="nav-item"><a class="nav-link" href="/ueber">Über</a></li>
+					<li class="nav-item"><a class="nav-link" href="/xml">XML</a></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Ranger Selbstidentifikation</h3>
+		</div>
+
+
+
+
+		<div class="jumbotron">
+
+			<h1 class="display-3">Komponentenauflistung</h1>
+
+
+			<!-- auf selbe url nur als post request;  -->
+			<form action="alleMoeglichenKomponenten" method="post">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="	col-2 col-form-label">Komponentenname:</label>
+					<div class="col-3">
+						<input type="text" name="neueKomponente" />
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success">Speichern</button>
+			</form>
+
+			<br />
+			<h3>Bereits Registrierte</h3>
+			<ul>
+				<li th:each="item : ${alle_komponenten}"><label
+					th:text="${item}">example</label></li>
+			</ul>
+		</div>
+
+
+
+
+
+
+
+		<footer class="footer">
+			<p>&copy; Gerhard Schmidt</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
+</body>
+</html>

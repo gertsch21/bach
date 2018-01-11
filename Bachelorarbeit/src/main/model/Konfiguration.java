@@ -1,11 +1,15 @@
 package main.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement
 public class Konfiguration implements Serializable{
 	private String name;
 	private String robotername;
-	
+	private List<Komponente> komponenten;
 	
 	public String getName() {
 		return name;
@@ -19,4 +23,14 @@ public class Konfiguration implements Serializable{
 	public void setRobotername(String robotername) {
 		this.robotername = robotername;
 	}
+	
+	@XmlElementWrapper
+    @XmlElement(name="komponente")
+	public List<Komponente> getListe() {
+		return komponenten;
+	}
+	public void setListe(List<Komponente> liste) {
+		this.komponenten = liste;
+	}
+	
 }

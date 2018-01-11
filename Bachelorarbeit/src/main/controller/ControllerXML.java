@@ -18,5 +18,10 @@ public class ControllerXML {
         return RangerManagement.getInstance().getCurrentRoboterData();
     }
 	
+	@RequestMapping("/xmlSelbstkonfiguration")
+    public Roboter xmlSelbstkonfiguration() {
+		System.out.println("/xmlSelbstkonfiguration");
+        return RangerManagement.getInstance().getCurrentSelbstkonfiguration();
+    }
 
 }

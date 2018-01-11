@@ -43,6 +43,7 @@
 			<h1 class="display-3">Konfiguration</h1>
 
 
+			<!-- auf selbe url nur als post request;  -->
 			<form action="#" th:action="@{/konfigurieren}" th:object="${konfiguration}" method="post">
 
 				<div class="form-group row">
@@ -62,12 +63,9 @@
 				</div>
 
 
-<ul>
-  <li th:each="ty : ${allTypes}">
-    <input type="radio" th:field="*{type}" th:value="${ty}" />
-    <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
-  </li>
-</ul>
+			
+
+
 
 
 				<div class="form-group row">
@@ -78,21 +76,21 @@
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> 
 								<input class="form-check-input" type="radio" name="ultrasonic"
-									id="ultrasonicVor" value="option1"/> 
+									value="vorh"/> 
 								vorhanden
 							</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> 
 								<input class="form-check-input" type="radio" name="ultrasonic"
-									id="ultrasonicNicht" value="option2"/> 
+									value="nich"/> 
 								nicht vorhanden
 							</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<label class="form-check-label"> 
 								<input class="form-check-input" type="radio" name="ultrasonic"
-									id="ultrasonicUnsich" value="option3" checked="true"/> 
+									value="unsi"/> 
 								unsicher
 							</label>
 						</div>
