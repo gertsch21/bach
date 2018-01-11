@@ -14,7 +14,6 @@ import javax.xml.bind.JAXBException;
 
 import main.mbot.client.IMbotEvent;
 import main.mbot.client.MbotClient;
-import main.model.Komponentenauflistung;
 import main.model.Konfiguration;
 import main.model.Roboter;
 import purejavacomm.CommPortIdentifier;
@@ -262,26 +261,26 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
-	public Komponentenauflistung getKomponentenauflistung() {
-		Komponentenauflistung kompAuflistung=null;
+
+	
+	public Konfiguration getKonfiguration() {
+		Konfiguration konfiguration = null;
 		ObjectInputStream in = null;
 		try {
-			in = new ObjectInputStream(new FileInputStream("alleKomponenten.conf"));
-			kompAuflistung = (Komponentenauflistung) in.readObject();
+			in = new ObjectInputStream(new FileInputStream("selbstkonfiguration.conf"));
+			konfiguration = (Konfiguration) in.readObject();
 		}catch(Exception e){
 			
 		}
-		if(kompAuflistung == null) kompAuflistung = new Komponentenauflistung();
-		
-		return kompAuflistung;
+		if(konfiguration == null) konfiguration = new Konfiguration();
+		return konfiguration;
 	}
 	
-	
-	public void saveKomponentenauflistung(Komponentenauflistung kompAuflistung) {
+	public void saveKonfiguration(Konfiguration konfiguration) {
 		ObjectOutputStream aus = null;
 		try {
-			aus = new ObjectOutputStream(new FileOutputStream("alleKomponenten.conf"));
-			aus.writeObject(kompAuflistung); //das automatisch von html gemappte
+			aus = new ObjectOutputStream(new FileOutputStream("selbstkonfiguration.conf"));
+			aus.writeObject(konfiguration); //das automatisch von html gemappte
 		} catch (IOException ex) {
 			System.out.println(ex);
 		} finally {
@@ -294,18 +293,4 @@ public class RangerManagement implements IMbotEvent {
 			}
 		}
 	}
-	
-	public Konfiguration getKonfiguration() {
-		Konfiguration konfiguration = null;
-		ObjectInputStream in = null;
-		try {
-			in = new ObjectInputStream(new FileInputStream("selbstkonfiguration.conf"));
-			konfiguration = (Konfiguration) in.readObject();
-		}catch(Exception e){
-			
-		}
-		 
-		return konfiguration;
-	}
-	
 }

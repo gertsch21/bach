@@ -86,7 +86,7 @@ public class KonfigurationXMLWriter {
 			liste.add(new Komponente("Sensor1", Vorhandensein.forName("VORHANDEN")));
 			liste.add(new Komponente("Sensor2", Vorhandensein.forName("unsicher")));
 			liste.add(new Komponente("Sensor3", Vorhandensein.forName("nicht_VORHANDEN")));
-			neu.setListe(liste);
+			neu.setKomponenten(liste);
 			writer.serialize(neu);
 			
 			

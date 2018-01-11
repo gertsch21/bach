@@ -1,13 +1,6 @@
 package main.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import main.management.RangerManagement;
 import main.model.Komponente;
-import main.model.Komponentenauflistung;
 import main.model.Konfiguration;
 import main.model.Usereingaberanger;
 import main.model.Vorhandensein;
@@ -47,35 +39,9 @@ public class ControllerHTML {
 
 	
 	@GetMapping("/konfigurieren")
-	public String konfigurationForm(Model model) {
-		Konfiguration konfiguration = null;
-		ObjectInputStream in = null;
-		try {
-			in = new ObjectInputStream(new FileInputStream("selbstkonfiguration.conf"));
-			konfiguration = (Konfiguration) in.readObject();
-			
-			
-		} catch (FileNotFoundException ex) {
-			System.out.println("Speichersdatei (noch) nicht vorhanden!");
-		} catch (Exception ex) {
-			System.out.println(ex);
-		} finally {
-			try {
-				if (in != null)
-					in.close();
-			} catch (IOException e) {
-			}
-		}
-		if (konfiguration == null)
-			konfiguration = new Konfiguration();
-		
-		
-		Komponentenauflistung kompAuflistung = RangerManagement.getInstance().getKomponentenauflistung();
-		
-		
-		
+	public String konfigurationForm(Model model, HttpServletRequest request) {
+		Konfiguration konfiguration = RangerManagement.getInstance().getKonfiguration();
 		model.addAttribute("konfiguration", konfiguration);
-		model.addAttribute("kompauflistung",kompAuflistung);
 		return "konfiguration";
 	}
 
@@ -87,48 +53,31 @@ public class ControllerHTML {
 	 * @return die startseite
 	 */
 	@PostMapping("/konfigurieren")
-	public String konfigurationSubmit(@ModelAttribute Konfiguration konfiguration,@ModelAttribute(value = "priorities") HashMap<String, String> priorities
-			,HttpServletRequest request) {
-
-		System.out.println("POST: Konfiguration: Name: " + konfiguration.getName());
-		System.out.println("POST: Konfiguration: RobisName: " + konfiguration.getRobotername());
-
+	public String konfigurationSubmit(@ModelAttribute Konfiguration konfiguration, HttpServletRequest request) {		
+		List<Komponente> konfigurationslisteNeu = new ArrayList<Komponente>();
 		
-		List<Komponente> aktKomponentenliste = new ArrayList<>();
+		Konfiguration konfigurationSpeicher = RangerManagement.getInstance().getKonfiguration();
 		
-		Komponentenauflistung kompAuflistung = RangerManagement.getInstance().getKomponentenauflistung();
-		for(String komponente : kompAuflistung.getAlleKomponenten()) {
-			if(request.getParameter(komponente)==null || request.getParameter(komponente).equals("unsi")) 
-				aktKomponentenliste.add(new Komponente(komponente, Vorhandensein.UNSICHER));
-			else if(request.getParameter(komponente).equals("nich"))
-				aktKomponentenliste.add(new Komponente(komponente, Vorhandensein.NICHT_VORHANDEN));
-			else if(request.getParameter(komponente).equals("vorh"))
-				aktKomponentenliste.add(new Komponente(komponente, Vorhandensein.VORHANDEN));
-		}
-		
-		konfiguration.setListe(aktKomponentenliste);
-		
-		System.out.println(konfiguration);
-		
-		
-		ObjectOutputStream aus = null;
-		try {
-			aus = new ObjectOutputStream(new FileOutputStream("selbstkonfiguration.conf"));
-			aus.writeObject(konfiguration); //das automatisch von html gemappte
-		} catch (IOException ex) {
-			System.out.println(ex);
-		} finally {
-			try {
-				if (aus != null) {
-					aus.flush();
-					aus.close();
-				}
-			} catch (IOException e) {
+		for(Komponente komponente : konfigurationSpeicher.getKomponenten()) {
+			if(request.getParameter(komponente.getName())==null || request.getParameter(komponente.getName()).equals("unsi")) {
+				komponente.setVorhandensein(Vorhandensein.UNSICHER);
+				konfigurationslisteNeu.add(komponente);
+			}else if(request.getParameter(komponente.getName()).equals("nich")) {
+				komponente.setVorhandensein(Vorhandensein.NICHT_VORHANDEN);
+				konfigurationslisteNeu.add(komponente);
+			}else if(request.getParameter(komponente.getName()).equals("vorh")) {
+				komponente.setVorhandensein(Vorhandensein.VORHANDEN);
+				konfigurationslisteNeu.add(komponente);
 			}
 		}
-	
 		
-		System.out.println(RangerManagement.getInstance().getKonfiguration());
+		konfiguration.setKomponenten(konfigurationslisteNeu);
+		
+		System.out.println("vor speichern: " + konfiguration);
+
+		RangerManagement.getInstance().saveKonfiguration(konfiguration);
+		
+		System.out.println("Nach Konfigurationsaenderung: " + RangerManagement.getInstance().getKonfiguration());
 		
 		return "start";
 	}
@@ -136,45 +85,55 @@ public class ControllerHTML {
 	
 
 	@GetMapping("/alleMoeglichenKomponenten")
-	public String alleMoeglichenKomponentenForm(Model model,HttpServletRequest request) {
-		Komponentenauflistung kompAuflistung=RangerManagement.getInstance().getKomponentenauflistung();
-		if(kompAuflistung == null) kompAuflistung = new Komponentenauflistung();
-		List<String> alle_komponenten = kompAuflistung.getAlleKomponenten();
+	public String alleMoeglichenKomponentenForm(Model model, HttpServletRequest request) {
+		Konfiguration konfiguration = RangerManagement.getInstance().getKonfiguration();
+		
+		if(konfiguration == null) konfiguration = new Konfiguration();
 		
 		String zuLoeschen = (String) request.getParameter("loeschen");
 		
 		if(! (zuLoeschen==null || zuLoeschen.length()==0) ) {
-			alle_komponenten.remove(zuLoeschen);
-			kompAuflistung.setAlleKomponenten(alle_komponenten);
-			RangerManagement.getInstance().saveKomponentenauflistung(kompAuflistung);
+			List<Komponente> komponenten_konfiguration = konfiguration.getKomponenten();
+			Komponente zuLoeschenKomp = null;
+			for(Komponente k : komponenten_konfiguration)
+				if(k.getName().equals(zuLoeschen)) {
+					zuLoeschenKomp = k;
+				}
+			if(zuLoeschenKomp!=null) komponenten_konfiguration.remove(zuLoeschenKomp);
+			
+			konfiguration.setKomponenten(komponenten_konfiguration);
+			
+			RangerManagement.getInstance().saveKonfiguration(konfiguration);
 		}
 		
-		model.addAttribute("alle_komponenten", alle_komponenten);
+		System.out.println("/alleMoeglichenKomponenten: Konfiguration: "+konfiguration);
+		model.addAttribute("konfiguration", konfiguration);
 		return "alleMoeglichenKomponenten";
 	}
 
 	
 	@PostMapping("/alleMoeglichenKomponenten")
 	public ModelAndView alleMoeglichenKomponentenSubmit(HttpServletRequest request) {
-		request.setAttribute("fehler", "");
-		String neueKomponente = request.getParameter("neueKomponente");
 		
-		if(neueKomponente==null || neueKomponente.length()==0) return new ModelAndView( "redirect:/alleMoeglichenKomponenten");
+		String neueKomponenteName = request.getParameter("neueKomponente");
+		if(neueKomponenteName==null || neueKomponenteName.length()==0) return new ModelAndView( "redirect:/alleMoeglichenKomponenten");
 		
-		Komponentenauflistung kompAuflistung = RangerManagement.getInstance().getKomponentenauflistung();
-		System.out.println("POST: alleMoeglichenKomponentenSubmit: Neue Komponente registriert: " + neueKomponente);
+		Komponente neueKomponente = new Komponente(neueKomponenteName.replace(" ", ""),Vorhandensein.UNSICHER);
 		
-		List<String> neueListe = kompAuflistung.getAlleKomponenten();
+		Konfiguration konfiguration = RangerManagement.getInstance().getKonfiguration();
 		
-		if(neueListe.contains(neueKomponente)) {
-			return new ModelAndView( "redirect:/alleMoeglichenKomponenten");
-		}
+		System.out.println("POST: alleMoeglichenKomponentenSubmit: Neue Komponente wird registriert: " + neueKomponente);
 		
-		neueListe.add(neueKomponente.replace(" ", ""));
-		java.util.Collections.sort(neueListe);
-		kompAuflistung.setAlleKomponenten(neueListe);
+		List<Komponente> konfigurationsliste = konfiguration.getKomponenten();
 		
-		RangerManagement.getInstance().saveKomponentenauflistung(kompAuflistung);
+		for(Komponente k : konfigurationsliste)
+			if(k.getName().equals(neueKomponente.getName())) 
+				return new ModelAndView("redirect:/alleMoeglichenKomponenten");
+		
+		konfigurationsliste.add(neueKomponente);
+		konfiguration.setKomponenten(konfigurationsliste);
+		
+		RangerManagement.getInstance().saveKonfiguration(konfiguration);
 		
 		return new ModelAndView("redirect:/alleMoeglichenKomponenten");
 	}

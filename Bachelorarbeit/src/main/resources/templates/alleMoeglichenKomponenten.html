@@ -67,10 +67,10 @@
 			<h3>Bereits Registrierte</h3>
 			
 				<ul>
-					<li th:each="item : ${alle_komponenten}">
+					<li th:each="item : ${konfiguration.komponenten}">
 						<form action="alleMoeglichenKomponenten" method="get">
-							<label class="col-2 col-form-label" th:text="${item}">example</label> 
-							<input type="hidden" name="loeschen" th:value="${item}" />
+							<label class="col-2 col-form-label" th:text="${item.name}">example</label> 
+							<input type="hidden" name="loeschen" th:value="${item.name}" />
 							<button type="submit" class="btn btn-warning">Löschen</button>
 						</form>
 					</li>

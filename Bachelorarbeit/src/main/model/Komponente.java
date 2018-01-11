@@ -23,10 +23,10 @@ public class Komponente implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Vorhandensein getVorhanden() {
+	public Vorhandensein getVorhandensein() {
 		return vorhandensein;
 	}
-	public void setVorhanden(Vorhandensein vorhandensein) {
+	public void setVorhandensein(Vorhandensein vorhandensein) {
 		this.vorhandensein = vorhandensein;
 	}
 	
