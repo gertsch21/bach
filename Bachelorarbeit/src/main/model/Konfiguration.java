@@ -18,7 +18,7 @@ public class Konfiguration implements Serializable{
 	
 	public Konfiguration() {
 		this.username = "Gib deinen Namen ein!";
-		this.robotername = "Wie heiﬂt dein Roboter?";
+		this.robotername = "Wie heisst dein Roboter?";
 		this.komponenten = new ArrayList<Komponente>();
         
 		BufferedReader in = null; 

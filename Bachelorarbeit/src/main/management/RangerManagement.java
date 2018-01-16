@@ -110,9 +110,7 @@ public class RangerManagement implements IMbotEvent {
 		}
 		return null;
 	}
-	
-	
-	
+
 
 	/**
 	 * Diese Methode soll die aktuellen Daten vom Roboter in das XML File lokal
@@ -124,10 +122,11 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Starte:RangerManagement:saveCurrentRoboterData");		
 		//RangerGetComponentsWithCode getcomponents = RangerGetComponentsWithCode.getInstance();
 		List<Komponente> vorkonfiguriertVorhanden = getAllVorhandenKonfiguriert();
+		Konfiguration konf = getKonfiguration();
 		
 		Roboter myRanger = new Roboter();
 		myRanger.setId(1);
-		myRanger.setName("myRanger");
+		myRanger.setName(konf.getRobotername());
 		myRanger.setfirma("Makeblock");
 		myRanger.setKomponenten(vorkonfiguriertVorhanden);
 		
