@@ -6,13 +6,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
 import main.mbot.client.IMbotEvent;
 import main.mbot.client.MbotClient;
+import main.model.Komponente;
 import main.model.Konfiguration;
 import main.model.Roboter;
+import main.model.Vorhandensein;
 import purejavacomm.CommPortIdentifier;
 import purejavacomm.NoSuchPortException;
 import purejavacomm.PortInUseException;
@@ -84,6 +88,30 @@ public class RangerManagement implements IMbotEvent {
 
 
 	
+	public List<Komponente> getAllVorhandenKonfiguriert() {
+		try {
+			KonfigurationXMLWriter kw = new KonfigurationXMLWriter();
+			Konfiguration konf = kw.deserialize();
+			List<Komponente> alsVorhandenMarkiert = new ArrayList<Komponente>();
+			for(Komponente kom : konf.getKomponenten()){
+				if(kom.getVorhandensein() == Vorhandensein.VORHANDEN)
+					alsVorhandenMarkiert.add(kom);
+			}
+			return alsVorhandenMarkiert;
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 	
 
 	/**
@@ -93,17 +121,16 @@ public class RangerManagement implements IMbotEvent {
 	 * @throws JAXBException
 	 */
 	public void saveCurrentRoboterData() throws JAXBException {
-		System.out.println("Starte:RangerManagement:saveCurrentRoboterData");
-		
-		RangerGetComponentsWithCode getcomponents = RangerGetComponentsWithCode.getInstance();
+		System.out.println("Starte:RangerManagement:saveCurrentRoboterData");		
+		//RangerGetComponentsWithCode getcomponents = RangerGetComponentsWithCode.getInstance();
+		List<Komponente> vorkonfiguriertVorhanden = getAllVorhandenKonfiguriert();
 		
 		Roboter myRanger = new Roboter();
 		myRanger.setId(1);
 		myRanger.setName("myRanger");
 		myRanger.setfirma("Makeblock");
-		myRanger.setFahrbar(getcomponents.istFahrbar());
-		myRanger.setAbstandssensor(getcomponents.hatAbstandssensor());
-		myRanger.setLinefollower(getcomponents.hatLineFollower());
+		myRanger.setKomponenten(vorkonfiguriertVorhanden);
+		
 		rw.serialize(myRanger);
 	}
 

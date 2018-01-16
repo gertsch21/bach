@@ -1,15 +1,21 @@
 package main.model;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "roboter")
 public class Roboter {
 	private int id;
 	private String name;
 	private String firma;
-	private boolean fahrbar;
-	private boolean abstandssensor;
-	private boolean linefollower;
+	private List<Komponente> komponenten;
+	private String ipAddress;
 
 	public int getId() {
 		return id;
@@ -19,6 +25,7 @@ public class Roboter {
 		this.id = id;
 	}
 
+    @XmlAttribute(name="name")
 	public String getName() {
 		return name;
 	}
@@ -35,40 +42,31 @@ public class Roboter {
 		this.firma = firma;
 	}
 
-	public boolean getFahrbar() {
-		return fahrbar;
+	@XmlElementWrapper(name = "units")
+    @XmlElement(name="unit")
+	public List<Komponente> getKomponenten() {
+		return komponenten;
 	}
 
-	public void setFahrbar(boolean fahrbar) {
-		this.fahrbar = fahrbar;
+	public void setKomponenten(List<Komponente> komponenten) {
+		this.komponenten = komponenten;
+	}
+	
+	
+	public String getIpAddress() {
+		try {
+			return InetAddress.getLocalHost().getHostAddress().toString();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			return "0";
+		}
 	}
 
-	public boolean getAbstandssensor() {
-		return abstandssensor;
-	}
-
-	public void setAbstandssensor(boolean abstandssensor) {
-		this.abstandssensor = abstandssensor;
-	}
-
-	public boolean getLinefollower() {
-		return linefollower;
-	}
-
-	public void setLinefollower(boolean linefollower) {
-		this.linefollower = linefollower;
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
 
 
-	public Roboter(int id, String name, String firma, boolean fahrbar, boolean abstandssensor, boolean linefollower) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.firma = firma;
-		this.fahrbar = fahrbar;
-		this.abstandssensor = abstandssensor;
-		this.linefollower = linefollower;
-	}
 
 	public Roboter() {
 		super();
@@ -76,8 +74,7 @@ public class Roboter {
 
 	@Override
 	public String toString() {
-		return "Roboter [id=" + id + ", name=" + name + ", firma=" + firma + ", fahrbar=" + fahrbar
-				+ ", abstandssensor=" + abstandssensor + ", linefollower=" + linefollower + "]";
+		return "Roboter [id=" + id + ", name=" + name + ", firma=" + firma + ", fahrbar=" +"]";
 	}
 
 
