@@ -28,7 +28,9 @@ public class ControllerHTML {
 	
 	@RequestMapping({"/","home","start"})
 	String start() {
-		RangerGetComponentsWithCode.getInstance().hatAbstandssensor();
+		if(RangerGetComponentsWithCode.getInstance().hatAbstandssensor()) System.out.println("Ultrasonic ist oben");
+		if(RangerGetComponentsWithCode.getInstance().hatLineFollower()) System.out.println("Linefollower ist oben");
+		
 		return "start";
 	}
 

@@ -34,19 +34,32 @@ public class RangerGetComponentsWithCode {
 
 	public boolean hatAbstandssensor() {
 		MbotClient mc =  RangerManagement.getInstance().getMc();
-		for(int i = 0; i<11; i++) {
+		boolean vorhanden = false;
+		for(int i = 1; i<11; i++) {
 			try {
-				System.out.println("Port: " + i + ": " + mc.readUltraSonic(i));
+				//System.out.println("Port: " + i + ": " + mc.readUltraSonic(i));
+				if(mc.readUltraSonic(i) <400) vorhanden = true;
+			} catch (IOException e) {
+				//System.err.println("im Catch");
+				e.printStackTrace();
+			}
+		}
+		return vorhanden;
+	}
+
+	public boolean hatLineFollower() {
+		MbotClient mc =  RangerManagement.getInstance().getMc();
+		boolean vorhanden = false;
+		for(int i = 1; i<11; i++) {
+			try {
+				System.out.println("Line: Port: " + i + ": " + mc.readLineFollower(i));
+				
 			} catch (IOException e) {
 				System.err.println("im Catch");
 				e.printStackTrace();
 			}
 		}
-		return false;
-	}
-
-	public boolean hatLineFollower() {
-		return false;
+		return vorhanden;
 	}
 
 	public boolean hatInternalTempSensor() {
