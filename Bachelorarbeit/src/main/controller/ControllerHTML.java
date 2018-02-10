@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import main.management.RangerGetComponentsWithCode;
 import main.management.RangerManagement;
 import main.model.Komponente;
 import main.model.Konfiguration;
@@ -27,6 +28,7 @@ public class ControllerHTML {
 	
 	@RequestMapping({"/","home","start"})
 	String start() {
+		RangerGetComponentsWithCode.getInstance().hatAbstandssensor();
 		return "start";
 	}
 
