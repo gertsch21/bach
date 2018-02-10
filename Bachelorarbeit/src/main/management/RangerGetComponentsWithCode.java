@@ -36,7 +36,7 @@ public class RangerGetComponentsWithCode {
 		MbotClient mc =  RangerManagement.getInstance().getMc();
 		for(int i = 0; i<11; i++) {
 			try {
-				System.out.println(mc.readUltraSonic(i));
+				System.out.println("Port: " + i + ": " + mc.readUltraSonic(i));
 			} catch (IOException e) {
 				System.err.println("im Catch");
 				e.printStackTrace();
