@@ -184,7 +184,7 @@ public class RangerManagement implements IMbotEvent {
 	 * Hier werden nicht die aktuellen Werte geholt, sondern 
 	 * @return
 	 */
-	public Roboter getRoboterData() {
+	private Roboter getRoboterData() {
 		System.out.println("Starte:RangerManagement:getRoboterData");
 		Roboter vonXML_file = null;
 		try {
@@ -209,8 +209,10 @@ public class RangerManagement implements IMbotEvent {
 	
 	
 	
-	
-	private void gyroDemo(MbotClient mc) {
+	/**
+	 * gibt alle Achsen des Gyrosensors aus
+	 */
+	public void gyroDemo() {
 		float x = mc.readGyro(1);
 		float y = mc.readGyro(2);
 		float z = mc.readGyro(3);
@@ -218,13 +220,24 @@ public class RangerManagement implements IMbotEvent {
 	}
 	
 	
+	/**
+	 * Um das IMbotEvent zu erfuellen(von Omilab vorgegeben)
+	 */
 	@Override
 	public void onButton(boolean pressed) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void moveForward(int gesch, int sec) throws IOException, InterruptedException  {
+	/**
+	 * Mit dieser Methode kann der Roboter vorwaerts bewegt werden(immer beide Motoren gleichzeitig)
+	 * Achtung: Diese Methode BLOCKT(nicht parallel)
+	 * @param gesch Die Geschwindigkeit zwischen -255(zurueckfahren) und 255
+	 * @param sec Die Dauer in Sekunden
+	 * @throws IOException 
+	 * @throws InterruptedException
+	 */
+	public void moveForward(int gesch, int sec) throws  InterruptedException, IOException  {
 		mc.encoderMotorLeft(gesch);
 		mc.encoderMotorRight(-gesch);
 		Thread.sleep(sec * 1000);
@@ -232,6 +245,14 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
+	/**
+	 * Mit dieser Methode kann der Roboter rueckwaerts bewegt werden(immer beide Motoren gleichzeitig)
+	 * Achtung: Diese Methode BLOCKT(nicht parallel)
+	 * @param gesch Die Geschwindigkeit zwischen -255(vorwaertsfahren) und 255
+	 * @param sec Die Dauer in Sekunden
+	 * @throws IOException 
+	 * @throws InterruptedException
+	 */
 	public void moveBackward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(-gesch);
 		mc.encoderMotorRight(gesch);
@@ -240,7 +261,12 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
-	
+	/**
+	 * Mit dieser Methode dreht sich der Roboter um den angegeben Winkel nach Rechts
+	 * @param winkel der Winkel, der angibt, um wieviel sich der Roboter nach Rechts drehen soll
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void rechtsDrehenWinkel(double winkel)throws IOException, InterruptedException  {
 		if(winkel<0||winkel>=360) {
 			System.err.println("negativer winkel");
@@ -268,20 +294,32 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorLeft(0);
 
 		System.out.println("Rangermanagement:rechtsDrehenWinkel: Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
-
-		
 	}
-	
+
+	/**
+	 * Mit dieser Methode dreht sich der Roboter um 90 Grad nach Rechts
+	 * Achtung: Steht der Roboter wo an, blockt die Methode, solange der Gyrosensor 90 Grad bestaetigt. 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void turnRight() throws IOException, InterruptedException  {
 		rechtsDrehenWinkel(90);
 	}
 
+	/**
+	 * Diese Methode stoppt beide Motoren. 
+	 * @throws Exception
+	 */
 	public void stop() throws Exception {
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
 	}
 
-
+	
+	/**
+	 * Mit dieser Methode wird aus dem 'selbstkonfiguration.conf
+	 * @return
+	 */
 	public Konfiguration getKonfiguration() {
 		Konfiguration konfiguration = null;
 		ObjectInputStream in = null;
