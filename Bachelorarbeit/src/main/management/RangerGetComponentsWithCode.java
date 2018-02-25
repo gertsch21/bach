@@ -4,6 +4,12 @@ import java.io.IOException;
 
 import main.mbot.client.MbotClient;
 
+/**
+ * In dieser Klasse sind alle Methoden, welche sich mit dem Holen der einzelnen Komponenten beschaeftigt. 
+ * Es wird mit diversen Algorithmen versucht SELBST ZU ERKENNEN ob die einzelnen Komponenten angeschlossen sind.
+ * 
+ * @author Gerhard
+ */
 public class RangerGetComponentsWithCode {
 
 	private static RangerGetComponentsWithCode instance;
@@ -12,6 +18,10 @@ public class RangerGetComponentsWithCode {
 		System.out.println("RangerGetComponentsWithCode:Defaultkonstruktor");
 	}
 
+	/**
+	 * Singleton
+	 * @return RangerGetComponentsWithCode-Objekt
+	 */
 	public static RangerGetComponentsWithCode getInstance() {
 		if (instance == null)
 			instance = new RangerGetComponentsWithCode();
@@ -20,7 +30,11 @@ public class RangerGetComponentsWithCode {
 
 
 	
-	
+	/**
+	 * Diese Methode prueft ob der Ranger fahrbar ist. Indem er eine Geschwindigkeit einstellt bei den zwei
+	 * Motoren. Falls bei diesem Vorgang ein Fehler auftritt, dann ist er nicht fahrbar.  
+	 * @return true, falls fahrbar, sonst false
+	 */
 	public boolean istFahrbar() {
 
 		try {
@@ -32,6 +46,10 @@ public class RangerGetComponentsWithCode {
 		return true;
 	}
 
+	/**
+	 * Diese Methode prueft ob der Ranger einen Abstandsmesser hat und dieser korrekte Werte liefert. 
+	 * @return true, falls vorhanden, sonst false
+	 */
 	public boolean hatAbstandssensor() {
 		MbotClient mc =  RangerManagement.getInstance().getMc();
 		boolean vorhanden = false;
@@ -47,6 +65,10 @@ public class RangerGetComponentsWithCode {
 		return vorhanden;
 	}
 
+	/**
+	 * Diese Methode prueft ob der Ranger einen LineFollower-Sensor hat und dieser korrekte Werte liefert. 
+	 * @return true, falls vorhanden, sonst false
+	 */
 	public boolean hatLineFollower() {
 		MbotClient mc =  RangerManagement.getInstance().getMc();
 		boolean vorhanden = false;
@@ -62,17 +84,32 @@ public class RangerGetComponentsWithCode {
 		return vorhanden;
 	}
 
+	/**
+	 * Diese Methode prueft ob der Ranger einen OnboardTemperatur-Sensor hat. 
+	 * @return true, falls vorhanden, sonst false
+	 */
 	public boolean hatInternalTempSensor() {
-		return false;
+		MbotClient mc =  RangerManagement.getInstance().getMc();
+		try{
+			mc.readTempSensorOnboardAuriga();
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 
-	public boolean hatExternalTempSensor() {
-		return false;
-	}
-
-	
-	public static void main(String[] args) {
-		System.out.println(RangerGetComponentsWithCode.getInstance().istFahrbar());
+	/**
+	 * Diese Methode prueft ob der Ranger einen OnboardLicht-Sensor hat. 
+	 * @return true, falls vorhanden, sonst false
+	 */
+	public boolean hatInternalLightSensor() {
+		MbotClient mc =  RangerManagement.getInstance().getMc();
+		try{
+			mc.readLightSensorOnboard();
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 	
 }

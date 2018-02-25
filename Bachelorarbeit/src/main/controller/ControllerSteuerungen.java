@@ -12,11 +12,22 @@ import main.management.RangerManagement;
 import main.model.Usereingaberanger;
 
 
+/**
+ * Diese Klasse enthaelt alle Rest-Endpoints, welche fuer die direkte Steuerung des CPS zustaendig sind.
+ * Ein Beispiel waere etwa das Geradeaus-Fahren. 
+ *  
+ * @author Gerhard
+ *
+ */
 @RestController
 @EnableAutoConfiguration
 public class ControllerSteuerungen {
 
-		
+		/**
+		 * Mit dieser Methode soll sich das CPS nach vor oder zurueck bewegen. 
+		 * @param ue die Werte, welche der User in das Formular eingetragen hat. 
+		 * @return Der neue ModelAndView(zurueck zur Ausgangsseite)
+		 */
 		@PostMapping("/gerade")
 		public ModelAndView gerade(@ModelAttribute Usereingaberanger ue) {
 			System.out.println("POST Request auf /gerade");
@@ -41,8 +52,14 @@ public class ControllerSteuerungen {
 				System.err.println("ERROR, wahrscheinlich Ranger nicht angeschlossen!");
 			}
 
-			return new ModelAndView( "redirect:/steuern");
+			return new ModelAndView("redirect:/steuern");
 		}
+		
+		/**
+		 * Mit diesem Aufruf soll sich das CPS nach rechts drehen
+		 * @return Der neue ModelAndView(zurueck zur Ausgangsseite)
+		 * @throws Exception
+		 */
 		@PostMapping("/rechtsDrehen")
 		ModelAndView rechtsDrehen() throws Exception {
 			try {

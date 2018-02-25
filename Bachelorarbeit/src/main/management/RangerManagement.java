@@ -23,24 +23,24 @@ import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 
 /**
- * Singleton Diese Klasse ist fuer die Businesslogic des Rangers vorhanden,
+ * Singleton
+ * Diese Klasse ist fuer die Businesslogic des Rangers vorhanden,
  * jegliche Informationen ueber den Ranger werden in dieser Klasse agglomeriert
  * und weitergegeben, zudem koennen auch die befehle, welche der Ranger kann
  * ueber diese klasse abgegeben werden
  * 
  * @author Gerhard
- *
  */
 public class RangerManagement implements IMbotEvent {
 	private int comPort;
 	private static MbotClient mc;
 	private RoboterXMLWriter rw;
 	private static RangerManagement instance; // singleton
-	
-	public  MbotClient getMc() {
-		return mc;
-	}
 
+	/**
+	 * Es werden die wichtigsten Einstellungen vorgenommen. Etwa wird der ComPort festgelegt auf 6(Raspberry) -> Siehe CommPortTest
+	 * Zudem wird eine Verbindung mit dem Ranger selbst hergestellt
+	 */
 	private RangerManagement() {
 		System.out.println("Rangermanagement:Defaultkonstruktor");
 		
@@ -71,8 +71,9 @@ public class RangerManagement implements IMbotEvent {
 			System.err.println("OHOH Exception unknown");
 		}
 
+		
 		try {
-			this.rw = new RoboterXMLWriter();
+			this.rw = new RoboterXMLWriter(); //Falls schon ein file vorhanden, wird dieses genommen
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
@@ -80,14 +81,28 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Ranger initialisiert");
 	}
 
+	/**
+	 * Fuer Singleton
+	 * @return Die Instanz der Klasse RangerManagement
+	 */
 	public static RangerManagement getInstance() {
 		if (instance == null)
 			instance = new RangerManagement();
 		return instance;
 	}
 
-
+	/**
+	 * Um eine Instanz der MbotClient-Klasse zu bekommen(Direkte Verbindung zum Roboter)
+	 * @return eine Instanz der MbotClient-Klasse
+	 */
+	public  MbotClient getMc() {
+		return mc;
+	}
 	
+	/**
+	 * Retourniert  spezielle Komponenten
+	 * @return alle Komponenten, bei denen der User manuell das Vorhandensein bestaetigt hat.
+	 */
 	public List<Komponente> getAllVorhandenKonfiguriert() {
 		try {
 			KonfigurationXMLWriter kw = new KonfigurationXMLWriter();
@@ -143,8 +158,8 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterData");
 		try {
 			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
-			saveCurrentRoboterData();
-			return new RoboterXMLWriter().deserialize();
+			saveCurrentRoboterData(); //speichere die aktuellen werte in file
+			return new RoboterXMLWriter().deserialize(); //hole file als xml formatiert
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -155,12 +170,20 @@ public class RangerManagement implements IMbotEvent {
 		return null;
 	}
 	
-
+	/**
+	 * Um die Roboterdaten als XML zu formatieren
+	 * @return Die aktuell gespeicherten Roboterdaten als XML-Formatiert 
+	 * @throws JAXBException
+	 */
 	public String getCurrentRoboterDataAsXML() throws JAXBException {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterDataAsXML");
 		return rw.roboterToXMLString(getCurrentRoboterData());
 	}
-
+	
+	/**
+	 * Hier werden nicht die aktuellen Werte geholt, sondern 
+	 * @return
+	 */
 	public Roboter getRoboterData() {
 		System.out.println("Starte:RangerManagement:getRoboterData");
 		Roboter vonXML_file = null;
