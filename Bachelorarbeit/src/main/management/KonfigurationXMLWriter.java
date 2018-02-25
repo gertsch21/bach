@@ -91,7 +91,7 @@ public class KonfigurationXMLWriter {
 	public Konfiguration deserialize() throws FileNotFoundException, IOException, ClassNotFoundException{
 		Konfiguration konfiguration = null;
 		ObjectInputStream in = null;
-
+ 
 		Path p = Paths.get(this.filename);
 		boolean exists = Files.exists(p);
 		if(!exists) throw new FileNotFoundException();
