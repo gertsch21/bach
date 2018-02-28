@@ -23,7 +23,7 @@ import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 
 /**
- * Singleton
+ * Singleton 
  * Diese Klasse ist fuer die Businesslogic des Rangers vorhanden,
  * jegliche Informationen ueber den Ranger werden in dieser Klasse agglomeriert
  * und weitergegeben, zudem koennen auch die befehle, welche der Ranger kann
