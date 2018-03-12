@@ -37,8 +37,16 @@ public class ControllerHTML {
 	 */
 	@RequestMapping({"/","home","start"})
 	String start() {
-		if(RangerGetComponentsWithCode.getInstance().hatAbstandssensor()) System.out.println("Ultrasonic ist oben");
-		if(RangerGetComponentsWithCode.getInstance().hatLineFollower()) System.out.println("Linefollower ist oben");
+		if(RangerGetComponentsWithCode.getInstance().hatAbstandssensor()) {
+			System.out.println("Ultrasonic ist oben");
+		}else {
+			System.out.println("Ultrasonic ist nicht oben!");
+		}
+		if(RangerGetComponentsWithCode.getInstance().hatLineFollower()) {
+			System.out.println("Linefollower ist oben");
+		}else {
+			System.out.println("Linefollower ist nicht oben");
+		}
 		
 		return "start";
 	}
