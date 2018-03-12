@@ -23,24 +23,24 @@ import purejavacomm.PortInUseException;
 import purejavacomm.UnsupportedCommOperationException;
 
 /**
- * Singleton Diese Klasse ist fuer die Businesslogic des Rangers vorhanden,
+ * Singleton 
+ * Diese Klasse ist fuer die Businesslogic des Rangers vorhanden,
  * jegliche Informationen ueber den Ranger werden in dieser Klasse agglomeriert
  * und weitergegeben, zudem koennen auch die befehle, welche der Ranger kann
  * ueber diese klasse abgegeben werden
  * 
  * @author Gerhard
- *
  */
 public class RangerManagement implements IMbotEvent {
 	private int comPort;
 	private static MbotClient mc;
 	private RoboterXMLWriter rw;
 	private static RangerManagement instance; // singleton
-	
-	public  MbotClient getMc() {
-		return mc;
-	}
 
+	/**
+	 * Es werden die wichtigsten Einstellungen vorgenommen. Etwa wird der ComPort festgelegt auf 6(Raspberry) -> Siehe CommPortTest
+	 * Zudem wird eine Verbindung mit dem Ranger selbst hergestellt
+	 */
 	private RangerManagement() {
 		System.out.println("Rangermanagement:Defaultkonstruktor");
 		
@@ -71,8 +71,9 @@ public class RangerManagement implements IMbotEvent {
 			System.err.println("OHOH Exception unknown");
 		}
 
+		
 		try {
-			this.rw = new RoboterXMLWriter();
+			this.rw = new RoboterXMLWriter(); //Falls schon ein file vorhanden, wird dieses genommen
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
@@ -80,14 +81,28 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Ranger initialisiert");
 	}
 
+	/**
+	 * Fuer Singleton
+	 * @return Die Instanz der Klasse RangerManagement
+	 */
 	public static RangerManagement getInstance() {
 		if (instance == null)
 			instance = new RangerManagement();
 		return instance;
 	}
 
-
+	/**
+	 * Um eine Instanz der MbotClient-Klasse zu bekommen(Direkte Verbindung zum Roboter)
+	 * @return eine Instanz der MbotClient-Klasse
+	 */
+	public  MbotClient getMc() {
+		return mc;
+	}
 	
+	/**
+	 * Retourniert  spezielle Komponenten
+	 * @return alle Komponenten, bei denen der User manuell das Vorhandensein bestaetigt hat.
+	 */
 	public List<Komponente> getAllVorhandenKonfiguriert() {
 		try {
 			KonfigurationXMLWriter kw = new KonfigurationXMLWriter();
@@ -143,8 +158,8 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterData");
 		try {
 			System.out.println("RangerManagement:getCurrentRoboterData:Neue Daten von Roboter holen");
-			saveCurrentRoboterData();
-			return new RoboterXMLWriter().deserialize();
+			saveCurrentRoboterData(); //speichere die aktuellen werte in file
+			return new RoboterXMLWriter().deserialize(); //hole file als xml formatiert
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -155,13 +170,21 @@ public class RangerManagement implements IMbotEvent {
 		return null;
 	}
 	
-
+	/**
+	 * Um die Roboterdaten als XML zu formatieren
+	 * @return Die aktuell gespeicherten Roboterdaten als XML-Formatiert 
+	 * @throws JAXBException
+	 */
 	public String getCurrentRoboterDataAsXML() throws JAXBException {
 		System.out.println("Starte:RangerManagement:getCurrentRoboterDataAsXML");
 		return rw.roboterToXMLString(getCurrentRoboterData());
 	}
-
-	public Roboter getRoboterData() {
+	
+	/**
+	 * Hier werden nicht die aktuellen Werte geholt, sondern 
+	 * @return
+	 */
+	private Roboter getRoboterData() {
 		System.out.println("Starte:RangerManagement:getRoboterData");
 		Roboter vonXML_file = null;
 		try {
@@ -186,8 +209,10 @@ public class RangerManagement implements IMbotEvent {
 	
 	
 	
-	
-	private void gyroDemo(MbotClient mc) {
+	/**
+	 * gibt alle Achsen des Gyrosensors aus
+	 */
+	public void gyroDemo() {
 		float x = mc.readGyro(1);
 		float y = mc.readGyro(2);
 		float z = mc.readGyro(3);
@@ -195,13 +220,24 @@ public class RangerManagement implements IMbotEvent {
 	}
 	
 	
+	/**
+	 * Um das IMbotEvent zu erfuellen(von Omilab vorgegeben)
+	 */
 	@Override
 	public void onButton(boolean pressed) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void moveForward(int gesch, int sec) throws IOException, InterruptedException  {
+	/**
+	 * Mit dieser Methode kann der Roboter vorwaerts bewegt werden(immer beide Motoren gleichzeitig)
+	 * Achtung: Diese Methode BLOCKT(nicht parallel)
+	 * @param gesch Die Geschwindigkeit zwischen -255(zurueckfahren) und 255
+	 * @param sec Die Dauer in Sekunden
+	 * @throws IOException 
+	 * @throws InterruptedException
+	 */
+	public void moveForward(int gesch, int sec) throws  InterruptedException, IOException  {
 		mc.encoderMotorLeft(gesch);
 		mc.encoderMotorRight(-gesch);
 		Thread.sleep(sec * 1000);
@@ -209,6 +245,14 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
+	/**
+	 * Mit dieser Methode kann der Roboter rueckwaerts bewegt werden(immer beide Motoren gleichzeitig)
+	 * Achtung: Diese Methode BLOCKT(nicht parallel)
+	 * @param gesch Die Geschwindigkeit zwischen -255(vorwaertsfahren) und 255
+	 * @param sec Die Dauer in Sekunden
+	 * @throws IOException 
+	 * @throws InterruptedException
+	 */
 	public void moveBackward(int gesch, int sec) throws IOException, InterruptedException  {
 		mc.encoderMotorLeft(-gesch);
 		mc.encoderMotorRight(gesch);
@@ -217,7 +261,12 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorRight(0);
 	}
 
-	
+	/**
+	 * Mit dieser Methode dreht sich der Roboter um den angegeben Winkel nach Rechts
+	 * @param winkel der Winkel, der angibt, um wieviel sich der Roboter nach Rechts drehen soll
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void rechtsDrehenWinkel(double winkel)throws IOException, InterruptedException  {
 		if(winkel<0||winkel>=360) {
 			System.err.println("negativer winkel");
@@ -245,20 +294,32 @@ public class RangerManagement implements IMbotEvent {
 		mc.encoderMotorLeft(0);
 
 		System.out.println("Rangermanagement:rechtsDrehenWinkel: Aktuell/Ziel: "+aktuellWinkel+"/"+ziel);
-
-		
 	}
-	
+
+	/**
+	 * Mit dieser Methode dreht sich der Roboter um 90 Grad nach Rechts
+	 * Achtung: Steht der Roboter wo an, blockt die Methode, solange der Gyrosensor 90 Grad bestaetigt. 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void turnRight() throws IOException, InterruptedException  {
 		rechtsDrehenWinkel(90);
 	}
 
+	/**
+	 * Diese Methode stoppt beide Motoren. 
+	 * @throws Exception
+	 */
 	public void stop() throws Exception {
 		mc.encoderMotorLeft(0);
 		mc.encoderMotorRight(0);
 	}
 
-
+	
+	/**
+	 * Mit dieser Methode wird aus dem 'selbstkonfiguration.conf
+	 * @return
+	 */
 	public Konfiguration getKonfiguration() {
 		Konfiguration konfiguration = null;
 		ObjectInputStream in = null;

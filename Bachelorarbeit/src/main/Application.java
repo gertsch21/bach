@@ -9,14 +9,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Diese Klasse dient rein zum Starten von Spring, was dann automatisch die
- * Restcontroller l�dt
+ * Diese Klasse dient rein zum Starten von der Spring-Applikation, was dann automatisch die
+ * Restcontroller laedt
  * 
  * @author Gerhard
  *
  */
-@SpringBootApplication(scanBasePackages = { "main.controller" }) // in welchem package befinden sich die
-																			// controller
+@SpringBootApplication(scanBasePackages = { "main.controller" }) // in welchem package befinden sich die controller
 public class Application {
 
 	public static void main(String[] args) throws Exception {

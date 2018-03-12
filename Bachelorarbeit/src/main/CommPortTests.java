@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 import purejavacomm.CommPortIdentifier;
 
 /**
- * Die klasse wird verwendet, um herauszufinden, wie die einzelnen namen der commports sind
- * bei linux sind dies ttyUSB* und bei windows COM*
+ * Die Klasse wird verwendet, um herauszufinden, wie die einzelnen Namen der Commports heissen
+ * bei Linux sind dies ttyUSB* und bei Windows COM*
  * @author Gerhard
  *
  */
@@ -17,7 +17,8 @@ public class CommPortTests {
 		CommPortIdentifier cpi = null;
 
 		Enumeration e =  CommPortIdentifier.getPortIdentifiers();
-
+		
+		//ueber alle CommPorts durchiterieren
 		while (e.hasMoreElements()) {
             try {
                 cpi = (CommPortIdentifier) e.nextElement();
