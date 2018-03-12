@@ -137,6 +137,22 @@ public class RangerManagement implements IMbotEvent {
 		System.out.println("Starte:RangerManagement:saveCurrentRoboterData");		
 		//RangerGetComponentsWithCode getcomponents = RangerGetComponentsWithCode.getInstance();
 		List<Komponente> vorkonfiguriertVorhanden = getAllVorhandenKonfiguriert();
+		
+		boolean linefollowerInListe = false;
+		for(Komponente k : vorkonfiguriertVorhanden) {
+			if(k.getName().toLowerCase().equals("linefollower")) {
+				if(RangerGetComponentsWithCode.getInstance().hatLineFollower()) {
+					vorkonfiguriertVorhanden.remove(k);
+					k.setVorhandensein(Vorhandensein.VORHANDEN);
+				}else {
+					vorkonfiguriertVorhanden.remove(k);
+				}
+			}else {
+				vorkonfiguriertVorhanden.add(new Komponente("LineFollower", Vorhandensein.VORHANDEN));
+			}
+		}
+			
+			
 		Konfiguration konf = getKonfiguration();
 		
 		Roboter myRanger = new Roboter();
