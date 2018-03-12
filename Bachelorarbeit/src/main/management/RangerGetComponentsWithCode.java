@@ -75,7 +75,7 @@ public class RangerGetComponentsWithCode {
 		for(int i = 1; i<11; i++) {
 			try {
 				System.out.println("Line: Port: " + i + ": " + mc.readLineFollower(i));
-				if (mc.readLineFollower(i) != 0) vorhanden = true; 
+				if (mc.readLineFollower(i) == 3) vorhanden = true; 
 			} catch (IOException e) {
 				System.err.println("im Catch");
 				e.printStackTrace();
