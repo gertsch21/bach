@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<roboter>
-    <abstandssensor>false</abstandssensor>
-    <fahrbar>true</fahrbar>
+<roboter name="Robi">
     <id>1</id>
-    <linefollower>false</linefollower>
-    <name>myRanger</name>
+    <ipAddress>127.0.1.1</ipAddress>
+    <units>
+        <unit>
+            <name>MeTouchSensor</name>
+            <ist_vorhanden>VORHANDEN</ist_vorhanden>
+        </unit>
+    </units>
     <firma>Makeblock</firma>
 </roboter>
