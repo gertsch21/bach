@@ -55,8 +55,8 @@ public class RangerGetComponentsWithCode {
 		boolean vorhanden = false;
 		for(int i = 1; i<11; i++) {
 			try {
-				//System.out.println("Port: " + i + ": " + mc.readUltraSonic(i));
-				if(mc.readUltraSonic(i) <400) vorhanden = true;
+				System.out.println("Port: " + i + ": " + mc.readUltraSonic(i));
+				if(mc.readUltraSonic(i) < 400) vorhanden = true;
 			} catch (IOException e) {
 				//System.err.println("im Catch");
 				e.printStackTrace();
