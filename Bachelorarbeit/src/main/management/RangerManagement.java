@@ -139,25 +139,29 @@ public class RangerManagement implements IMbotEvent {
 		List<Komponente> vorkonfiguriertVorhanden = getAllVorhandenKonfiguriert();
 		List<Komponente> ende = new ArrayList<Komponente>();
 		
-		boolean linefollower = false;
 		for(Komponente k : vorkonfiguriertVorhanden) {
-			if(k.getName().toLowerCase().equals("linefollower")) {
-				if(RangerGetComponentsWithCode.getInstance().hatLineFollower())
-					ende.add(new Komponente("Linefollower",Vorhandensein.VORHANDEN));
-				else
-					ende.add(new Komponente("Linefollower",Vorhandensein.UNSICHER));
-				linefollower = true;
+			if(k.getName().toLowerCase().equals("linefollower") || k.getName().toLowerCase().equals("ultrasonic")) {
+				
 			}else {
 				ende.add(k);
 			}	
 		}
 		
-		if(!linefollower)
-			if(RangerGetComponentsWithCode.getInstance().hatLineFollower())
-				ende.add(new Komponente("Linefollower",Vorhandensein.VORHANDEN));
-			else
-				ende.add(new Komponente("Linefollower",Vorhandensein.UNSICHER));
+		
+		if(RangerGetComponentsWithCode.getInstance().hatLineFollower())
+			ende.add(new Komponente("LineFollower",Vorhandensein.VORHANDEN));
+		else
+			ende.add(new Komponente("LineFollower",Vorhandensein.UNSICHER));
+		
+		if(RangerGetComponentsWithCode.getInstance().hatAbstandssensor())
+			ende.add(new Komponente("Ultrasonic",Vorhandensein.VORHANDEN));
+		else
+			ende.add(new Komponente("Ultrasonic",Vorhandensein.UNSICHER));
 			
+		System.out.println("\n\n");
+		for(Komponente k: ende)
+			System.out.println(k);
+		
 			
 		Konfiguration konf = getKonfiguration();
 		
@@ -165,7 +169,7 @@ public class RangerManagement implements IMbotEvent {
 		myRanger.setId(1);
 		myRanger.setName(konf.getRobotername());
 		myRanger.setfirma("Makeblock");
-		myRanger.setKomponenten(vorkonfiguriertVorhanden);
+		myRanger.setKomponenten(ende);
 		
 		rw.serialize(myRanger);
 	}
