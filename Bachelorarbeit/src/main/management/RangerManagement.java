@@ -140,16 +140,16 @@ public class RangerManagement implements IMbotEvent {
 		
 		boolean linefollowerInListe = false;
 		for(Komponente k : vorkonfiguriertVorhanden) {
-//			if(k.getName().toLowerCase().equals("linefollower")) {
-//				if(RangerGetComponentsWithCode.getInstance().hatLineFollower()) {
+			if(k.getName().toLowerCase().equals("linefollower")) {
+				if(RangerGetComponentsWithCode.getInstance().hatLineFollower()) {
 //					vorkonfiguriertVorhanden.remove(k);
 //					k.setVorhandensein(Vorhandensein.VORHANDEN);
-//				}else {
+				}else {
 //					vorkonfiguriertVorhanden.remove(k);
-//				}
-//			}else {
+				}
+			}else {
 //				vorkonfiguriertVorhanden.add(new Komponente("LineFollower", Vorhandensein.VORHANDEN));
-//			}
+			}
 		}
 			
 			
