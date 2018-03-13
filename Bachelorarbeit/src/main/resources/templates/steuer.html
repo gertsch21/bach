@@ -10,7 +10,7 @@
 	<script>
 		function domain_in_iframe() {
 			var x = document.domain;
-			x = "http://" + x + ":8081";
+			x = "http://" + x + ":8081/";
 			if(document.getElementById("streaming_frame").src == x){
 				alert("gleich");	
 			}else{
