@@ -14,8 +14,9 @@
 			if(document.getElementById("streaming_frame").src == x){
 				alert("gleich");	
 			}else{
+				alert("nicht gleich: \n" + document.getElementById("streaming_frame").src + "\n"+x);
 				document.getElementById("streaming_frame").src = x;
-				alert("nicht gleich");
+				
 			}
 		}
 		window.onload = domain_in_iframe;
