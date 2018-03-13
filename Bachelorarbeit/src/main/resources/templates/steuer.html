@@ -11,8 +11,12 @@
 		function domain_in_iframe() {
 			var x = document.domain;
 			x = "http://" + x + ":8081";
-			if(document.getElementById("streaming_frame").src != x)
+			if(document.getElementById("streaming_frame").src == x){
+				alert("gleich");	
+			}else{
 				document.getElementById("streaming_frame").src = x;
+				alert("nicht gleich");
+			}
 		}
 		window.onload = domain_in_iframe;
 		
