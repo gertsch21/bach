@@ -12,9 +12,7 @@
 			var x = document.domain;
 			x = "http://" + x + ":8081/";
 			if(document.getElementById("streaming_frame").src == x){
-				alert("gleich");	
 			}else{
-				alert("nicht gleich: \n" + document.getElementById("streaming_frame").src + "\n"+x);
 				document.getElementById("streaming_frame").src = x;
 				
 			}
